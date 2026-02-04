@@ -1,8 +1,7 @@
 {
-    "HomePage": {
-        "title": "Felix Ng",
-        "intro": "Explorer. Building real systems.",
-        "sub_intro": "A curated collection of logs, notes, and systems."
+    "Metadata": {
+        "title": "Felix Ng - Personal Website",
+        "description": "Engineer, Builder, and Writer. Sharing my systems, notes, and projects."
     },
     "Nav": {
         "home": "Home",
@@ -11,5 +10,9 @@
         "systems": "Systems",
         "projects": "Projects",
         "about": "About"
+    },
+    "HomePage": {
+        "title": "Hello world!",
+        "about": "Go to About page"
     }
 }

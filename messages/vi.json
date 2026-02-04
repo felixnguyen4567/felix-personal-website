@@ -1,8 +1,7 @@
 {
-    "HomePage": {
-        "title": "Felix Ng",
-        "intro": "Nhà khám phá. Xây dựng hệ thống thực tế.",
-        "sub_intro": "Tuyển tập nhật ký, ghi chú và hệ thống."
+    "Metadata": {
+        "title": "Felix Ng - Trang Cá Nhân",
+        "description": "Kỹ sư, Người xây dựng, và Nhà văn. Chia sẻ hệ thống, ghi chú và dự án của tôi."
     },
     "Nav": {
         "home": "Trang chủ",
@@ -11,5 +10,9 @@
         "systems": "Hệ thống",
         "projects": "Dự án",
         "about": "Giới thiệu"
+    },
+    "HomePage": {
+        "title": "Xin chào!",
+        "about": "Về tôi"
     }
 }

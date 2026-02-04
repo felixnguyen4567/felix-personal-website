@@ -2,6 +2,30 @@ import { getPostBySlug } from '@/app/actions/posts';
 import { notFound } from 'next/navigation';
 import { MDXContent } from '@/components/mdx-content';
 import { setRequestLocale } from 'next-intl/server';
+import { Metadata } from 'next';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string, slug: string }> }): Promise<Metadata> {
+    const { locale, slug } = await params;
+    const post = await getPostBySlug(slug);
+
+    if (!post) {
+        return {};
+    }
+
+    const title = locale === 'vi' && post.title_vi ? post.title_vi : post.title_en;
+    const description = locale === 'vi' && post.excerpt_vi ? post.excerpt_vi : post.excerpt_en;
+
+    return {
+        title,
+        description,
+        openGraph: {
+            title,
+            description: description || undefined,
+            type: 'article',
+            publishedTime: post.createdAt.toISOString(),
+        }
+    };
+}
 
 export default async function LogStartPage({ params }: { params: Promise<{ locale: string, slug: string }> }) {
     const { locale, slug } = await params;
