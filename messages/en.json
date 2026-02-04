@@ -1,0 +1,15 @@
+{
+    "HomePage": {
+        "title": "Felix Ng",
+        "intro": "Explorer. Building real systems.",
+        "sub_intro": "A curated collection of logs, notes, and systems."
+    },
+    "Nav": {
+        "home": "Home",
+        "logs": "Logs",
+        "notes": "Notes",
+        "systems": "Systems",
+        "projects": "Projects",
+        "about": "About"
+    }
+}

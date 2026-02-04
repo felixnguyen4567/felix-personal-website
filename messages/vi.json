@@ -1,0 +1,15 @@
+{
+    "HomePage": {
+        "title": "Felix Ng",
+        "intro": "Nhà khám phá. Xây dựng hệ thống thực tế.",
+        "sub_intro": "Tuyển tập nhật ký, ghi chú và hệ thống."
+    },
+    "Nav": {
+        "home": "Trang chủ",
+        "logs": "Nhật ký",
+        "notes": "Ghi chú",
+        "systems": "Hệ thống",
+        "projects": "Dự án",
+        "about": "Giới thiệu"
+    }
+}
