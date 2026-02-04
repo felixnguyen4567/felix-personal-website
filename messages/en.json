@@ -13,6 +13,8 @@
     },
     "HomePage": {
         "title": "Hello world!",
+        "intro": "I'm Felix Ng, a software engineer and builder.",
+        "sub_intro": "Exploring systems, writing thoughts, and building tools.",
         "about": "Go to About page"
     }
 }

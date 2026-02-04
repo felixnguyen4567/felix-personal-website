@@ -13,6 +13,8 @@
     },
     "HomePage": {
         "title": "Xin chào!",
+        "intro": "Tôi là Felix Ng, một kỹ sư phần mềm và người xây dựng.",
+        "sub_intro": "Khám phá hệ thống, viết lách và xây dựng công cụ.",
         "about": "Về tôi"
     }
 }

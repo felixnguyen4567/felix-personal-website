@@ -1,4 +1,5 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import Image from 'next/image';
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
@@ -8,6 +9,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     return (
         <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
             <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start text-center sm:text-left">
+                <Image
+                    src="/felix.jpg"
+                    alt="Felix Ng"
+                    width={150}
+                    height={150}
+                    className="rounded-full border-4 border-gray-100 shadow-sm"
+                    priority
+                />
                 <h1 className="text-4xl font-bold tracking-tight">{t('title')}</h1>
                 <p className="text-lg text-muted-foreground">{t('intro')}</p>
                 <p className="text-sm text-gray-500">{t('sub_intro')}</p>
