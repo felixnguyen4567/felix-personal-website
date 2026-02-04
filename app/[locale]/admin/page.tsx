@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
 
 export default async function AdminPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
@@ -34,10 +35,12 @@ export default async function AdminPage({ params }: { params: Promise<{ locale: 
             </div>
 
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {/* Placeholder for future stats/actions */}
                 <div className="p-6 border rounded-lg bg-card text-card-foreground shadow-sm">
                     <h3 className="text-lg font-semibold">Posts</h3>
-                    <p className="text-sm text-muted-foreground">Manage your logs, notes, and systems.</p>
+                    <p className="text-sm text-muted-foreground mb-4">Manage your logs, notes, and systems.</p>
+                    <Link href="/admin/posts">
+                        <Button variant="secondary" className="w-full">Manage Posts</Button>
+                    </Link>
                 </div>
                 <div className="p-6 border rounded-lg bg-card text-card-foreground shadow-sm">
                     <h3 className="text-lg font-semibold">Projects</h3>

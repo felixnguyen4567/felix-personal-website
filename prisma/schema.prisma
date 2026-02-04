@@ -18,9 +18,15 @@ model User {
   projects  Project[]
 }
 
+enum PostType {
+  LOG
+  NOTE
+}
+
 model Post {
   id            String   @id @default(uuid())
   slug          String   @unique
+  type          PostType @default(LOG)
   title_en      String
   title_vi      String?
   excerpt_en    String?
