@@ -3,6 +3,7 @@
 import { PrismaClient, PostType } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+import { logAudit } from '@/lib/audit'
 
 const prisma = new PrismaClient()
 
@@ -24,7 +25,7 @@ export async function createPost(prevState: unknown, formData: FormData) {
     }
 
     try {
-        await prisma.post.create({
+        const post = await prisma.post.create({
             data: {
                 slug,
                 title_en,
@@ -33,6 +34,7 @@ export async function createPost(prevState: unknown, formData: FormData) {
                 authorId: user.id
             }
         })
+        await logAudit('CREATE', 'POST', `Created post: ${slug} (${post.type})`, user.id)
     } catch (e: unknown) {
         const message = e instanceof Error ? e.message : 'Unknown error';
         return { error: 'Failed to create post: ' + message }
@@ -50,7 +52,7 @@ export async function updatePost(id: string, prevState: unknown, formData: FormD
     const locale = formData.get('locale') as string
 
     try {
-        await prisma.post.update({
+        const post = await prisma.post.update({
             where: { id },
             data: {
                 slug,
@@ -59,6 +61,7 @@ export async function updatePost(id: string, prevState: unknown, formData: FormD
                 type
             }
         })
+        await logAudit('UPDATE', 'POST', `Updated post: ${slug}`, post.authorId)
     } catch (e: unknown) {
         const message = e instanceof Error ? e.message : 'Unknown error';
         return { error: 'Failed to update post: ' + message }
@@ -85,5 +88,6 @@ export async function getPostBySlug(slug: string) {
 
 export async function deletePost(id: string) {
     await prisma.post.delete({ where: { id } })
+    await logAudit('DELETE', 'POST', `Deleted post: ${id}`)
     revalidatePath('/admin/posts')
 }

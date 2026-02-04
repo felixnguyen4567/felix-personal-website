@@ -49,6 +49,13 @@ export default async function AdminPage({ params }: { params: Promise<{ locale: 
                         <Button variant="secondary" className="w-full">Manage Projects</Button>
                     </Link>
                 </div>
+                <div className="p-6 border rounded-lg bg-card text-card-foreground shadow-sm">
+                    <h3 className="text-lg font-semibold">System</h3>
+                    <p className="text-sm text-muted-foreground mb-4">Audit logs & Settings.</p>
+                    <Link href="/admin/system">
+                        <Button variant="outline" className="w-full">View Logs</Button>
+                    </Link>
+                </div>
             </div>
         </div>
     );

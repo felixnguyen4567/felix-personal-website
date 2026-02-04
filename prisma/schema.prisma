@@ -16,6 +16,7 @@ model User {
   updatedAt DateTime @updatedAt
   posts     Post[]
   projects  Project[]
+  auditLogs AuditLog[]
 }
 
 enum PostType {
@@ -56,4 +57,15 @@ model Project {
   updatedAt   DateTime @updatedAt
   authorId    String
   author      User     @relation(fields: [authorId], references: [id])
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  action    String
+  resource  String
+  details   String?
+  ipAddress String?
+  createdAt DateTime @default(now())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
 }

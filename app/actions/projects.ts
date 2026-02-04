@@ -3,6 +3,7 @@
 import { PrismaClient } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+import { logAudit } from '@/lib/audit'
 
 const prisma = new PrismaClient()
 
@@ -14,7 +15,6 @@ export async function createProject(prevState: unknown, formData: FormData) {
     const link = formData.get('link') as string
     const locale = formData.get('locale') as string
 
-    // Temporary User Check
     let user = await prisma.user.findFirst()
     if (!user) {
         user = await prisma.user.create({
@@ -36,6 +36,7 @@ export async function createProject(prevState: unknown, formData: FormData) {
                 authorId: user.id
             }
         })
+        await logAudit('CREATE', 'PROJECT', `Created project: ${slug}`, user.id)
     } catch (e: unknown) {
         const message = e instanceof Error ? e.message : 'Unknown error';
         return { error: 'Failed to create project: ' + message }
@@ -64,6 +65,7 @@ export async function updateProject(id: string, prevState: unknown, formData: Fo
                 link
             }
         })
+        await logAudit('UPDATE', 'PROJECT', `Updated project: ${slug}`)
     } catch (e: unknown) {
         const message = e instanceof Error ? e.message : 'Unknown error';
         return { error: 'Failed to update project: ' + message }
@@ -89,5 +91,6 @@ export async function getProjectBySlug(slug: string) {
 
 export async function deleteProject(id: string) {
     await prisma.project.delete({ where: { id } })
+    await logAudit('DELETE', 'PROJECT', `Deleted project: ${id}`)
     revalidatePath('/admin/projects')
 }
