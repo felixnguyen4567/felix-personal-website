@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PostType } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 export async function POST(req: NextRequest) {
     const authHeader = req.headers.get('authorization');
@@ -38,6 +39,11 @@ export async function POST(req: NextRequest) {
                 authorId: user.id
             },
         });
+
+        // Revalidate cache for list pages
+        revalidatePath('/[locale]/logs', 'page');
+        revalidatePath('/[locale]/notes', 'page');
+        revalidatePath('/[locale]', 'layout'); // Optional: Update anywhere latest posts might be shown
 
         return NextResponse.json({ success: true, post }, { status: 201 });
 
