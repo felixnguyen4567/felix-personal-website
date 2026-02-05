@@ -7,7 +7,8 @@ import { Link } from "@/i18n/routing"
 import { Metadata } from 'next';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string, slug: string }> }): Promise<Metadata> {
-    const { locale, slug } = await params;
+    const { locale, slug: rawSlug } = await params;
+    const slug = decodeURIComponent(rawSlug);
     const project = await getProjectBySlug(slug);
 
     if (!project) {
@@ -29,7 +30,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 export default async function ProjectDetailPage({ params }: { params: Promise<{ locale: string, slug: string }> }) {
-    const { locale, slug } = await params;
+    const { locale, slug: rawSlug } = await params;
+    const slug = decodeURIComponent(rawSlug);
     setRequestLocale(locale);
     const project = await getProjectBySlug(slug);
 

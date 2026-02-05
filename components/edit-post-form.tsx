@@ -1,12 +1,13 @@
 'use client'
 
-import { useActionState } from "react"
+import { useActionState, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Input as ShadcnInput } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { updatePost } from "@/app/actions/posts"
 import { Textarea } from "@/components/ui/textarea"
 import { Post } from "@prisma/client"
+import { MediaUpload } from "@/components/media-upload"
 
 const initialState = {
     error: '',
@@ -15,6 +16,19 @@ const initialState = {
 export function EditPostForm({ post, locale }: { post: Post, locale: string }) {
     const updatePostWithId = updatePost.bind(null, post.id)
     const [state, formAction, isPending] = useActionState(updatePostWithId, initialState)
+    const contentRef = useRef<HTMLTextAreaElement>(null)
+
+    const handleMediaUpload = (url: string) => {
+        if (contentRef.current) {
+            const textarea = contentRef.current
+            const start = textarea.selectionStart
+            const end = textarea.selectionEnd
+            const text = textarea.value
+            const imageMarkdown = `\n![image](${url})\n`
+            textarea.value = text.substring(0, start) + imageMarkdown + text.substring(end)
+            textarea.focus()
+        }
+    }
 
     return (
         <form action={formAction} className="space-y-6 max-w-2xl">
@@ -43,8 +57,12 @@ export function EditPostForm({ post, locale }: { post: Post, locale: string }) {
             </div>
 
             <div className="space-y-2">
-                <Label htmlFor="content_en">Content (Markdown)</Label>
+                <div className="flex justify-between items-center">
+                    <Label htmlFor="content_en">Content (Markdown)</Label>
+                    <MediaUpload onUpload={handleMediaUpload} />
+                </div>
                 <Textarea
+                    ref={contentRef}
                     id="content_en"
                     name="content_en"
                     required

@@ -1,7 +1,5 @@
-import { PrismaClient } from '@prisma/client';
 import { headers } from 'next/headers';
-
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/prisma';
 
 export async function logAudit(action: string, resource: string, details?: string, userId?: string) {
     try {

@@ -5,7 +5,8 @@ import { setRequestLocale } from 'next-intl/server';
 import { Metadata } from 'next';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string, slug: string }> }): Promise<Metadata> {
-    const { locale, slug } = await params;
+    const { locale, slug: rawSlug } = await params;
+    const slug = decodeURIComponent(rawSlug);
     const post = await getPostBySlug(slug);
 
     if (!post) {
@@ -28,7 +29,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 export default async function LogStartPage({ params }: { params: Promise<{ locale: string, slug: string }> }) {
-    const { locale, slug } = await params;
+    const { locale, slug: rawSlug } = await params;
+    const slug = decodeURIComponent(rawSlug);
     setRequestLocale(locale);
     const post = await getPostBySlug(slug);
 

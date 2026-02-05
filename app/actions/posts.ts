@@ -1,11 +1,10 @@
 'use server'
 
-import { PrismaClient, PostType } from '@prisma/client'
+import { PostType } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { logAudit } from '@/lib/audit'
-
-const prisma = new PrismaClient()
+import { prisma } from '@/lib/prisma'
 
 export async function createPost(prevState: unknown, formData: FormData) {
     const title_en = formData.get('title_en') as string
