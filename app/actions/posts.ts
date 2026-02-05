@@ -70,11 +70,26 @@ export async function updatePost(id: string, prevState: unknown, formData: FormD
     redirect(`/${locale}/admin/posts`)
 }
 
-export async function getPosts(type?: PostType) {
+export async function getPosts(type?: PostType, publishedOnly: boolean = true) {
     return await prisma.post.findMany({
-        where: type ? { type } : undefined,
+        where: {
+            ...(type ? { type } : {}),
+            ...(publishedOnly ? { published: true } : {})
+        },
         orderBy: { createdAt: 'desc' }
     })
+}
+
+export async function togglePublish(id: string, currentState: boolean) {
+    const post = await prisma.post.update({
+        where: { id },
+        data: { published: !currentState }
+    })
+    await logAudit('UPDATE', 'POST', `${!currentState ? 'Published' : 'Unpublished'} post: ${post.slug}`, post.authorId)
+    revalidatePath('/[locale]/admin/posts', 'page')
+    revalidatePath('/[locale]/logs', 'page')
+    revalidatePath('/[locale]/notes', 'page')
+    revalidatePath('/[locale]', 'layout')
 }
 
 export async function getPost(id: string) {
