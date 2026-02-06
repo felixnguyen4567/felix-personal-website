@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Journal | Minimalist Editorial</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;1,300&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#171717",
+                        "accent": "#fcfcfc",
+                        "border-thin": "#e5e5e5",
+                        "text-main": "#262626",
+                        "text-muted": "#737373",
+                        "meta": "#a3a3a3"
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"],
+                        "serif": ["Crimson Pro", "serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-[#ffffff] text-text-main font-sans antialiased selection:bg-black selection:text-white;
+            }
+        }
+        .nav-link {
+            @apply text-[11px] font-medium text-text-muted hover:text-primary transition-colors tracking-[0.15em] uppercase;
+        }
+        .category-filter {
+            @apply text-[10px] font-semibold uppercase tracking-[0.2em] text-text-muted hover:text-primary transition-all px-4 py-2;
+        }
+        .category-filter.active {
+            @apply text-primary bg-neutral-50;
+        }
+        .article-entry {
+            @apply mb-32 last:mb-0;
+        }
+    </style>
+</head>
+<body>
+<nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-sm">
+<div class="max-w-[1400px] mx-auto px-8 lg:px-16 h-24 flex items-center justify-between">
+<div class="flex items-center gap-12">
+<a class="text-xl font-serif tracking-tight font-medium" href="#">Archive.</a>
+<div class="hidden lg:flex items-center gap-10">
+<a class="nav-link" href="#">Projects</a>
+<a class="nav-link text-primary" href="#">Journal</a>
+<a class="nav-link" href="#">AI Feed</a>
+<a class="nav-link" href="#">About</a>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<button class="nav-link">Search</button>
+<button class="text-[11px] bg-primary text-white px-6 py-2.5 tracking-widest font-medium uppercase">
+                Newsletter
+            </button>
+</div>
+</div>
+</nav>
+<main class="pt-48 pb-48">
+<div class="max-w-[1400px] mx-auto px-8 lg:px-16">
+<div class="grid grid-cols-12 gap-16">
+<aside class="hidden lg:block col-span-2">
+<div class="sticky top-48">
+<h3 class="text-[10px] font-bold text-primary uppercase tracking-[0.25em] mb-8">Categories</h3>
+<nav class="flex flex-col gap-2 -ml-4">
+<a class="category-filter active" href="#">All Posts</a>
+<a class="category-filter" href="#">Design</a>
+<a class="category-filter" href="#">Engineering</a>
+<a class="category-filter" href="#">AI News</a>
+<a class="category-filter" href="#">Research</a>
+</nav>
+</div>
+</aside>
+<div class="col-span-12 lg:col-span-8 lg:col-start-4">
+<header class="mb-32">
+<h1 class="text-xs font-bold uppercase tracking-[0.4em] text-meta mb-6">Volume 01</h1>
+<h2 class="text-6xl lg:text-7xl font-serif font-light leading-tight tracking-tight">The Journal.</h2>
+<p class="mt-8 text-xl text-text-muted font-light max-w-2xl leading-relaxed">
+                        Curated thoughts on the intersection of craft, technology, and the future of artificial intelligence.
+                    </p>
+</header>
+<div class="space-y-0">
+<article class="article-entry group">
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.2em] text-meta">
+<span>Oct 12, 2024</span>
+<span class="w-1 h-1 rounded-full bg-border-thin"></span>
+<span class="text-primary">Design</span>
+</div>
+<a class="block" href="#">
+<h3 class="text-4xl lg:text-5xl font-serif font-normal leading-tight text-text-main group-hover:text-text-muted transition-colors duration-500">
+                                    Designing for Discomfort: Why friction in AI interfaces matters.
+                                </h3>
+<p class="mt-6 text-lg text-text-muted font-light leading-relaxed max-w-2xl line-clamp-2">
+                                    As we move toward seamless automation, we must consider where human agency needs to be preserved through intentional interaction hurdles.
+                                </p>
+</a>
+<div class="mt-4">
+<a class="inline-block text-[10px] font-bold uppercase tracking-[0.2em] border-b border-primary pb-1 transition-all hover:pr-4" href="#">
+                                    Read Manuscript
+                                </a>
+</div>
+</div>
+</article>
+<article class="article-entry group">
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.2em] text-meta">
+<span>Sep 28, 2024</span>
+<span class="w-1 h-1 rounded-full bg-border-thin"></span>
+<span class="text-primary">Engineering</span>
+</div>
+<a class="block" href="#">
+<h3 class="text-4xl lg:text-5xl font-serif font-normal leading-tight text-text-main group-hover:text-text-muted transition-colors duration-500">
+                                    Python vs. Rust for Scalable Data Crawlers in 2025.
+                                </h3>
+<p class="mt-6 text-lg text-text-muted font-light leading-relaxed max-w-2xl line-clamp-2">
+                                    A deep dive into memory safety, execution speed, and developer ergonomics when building the next generation of web scrapers for LLM training.
+                                </p>
+</a>
+<div class="mt-4">
+<a class="inline-block text-[10px] font-bold uppercase tracking-[0.2em] border-b border-primary pb-1 transition-all hover:pr-4" href="#">
+                                    Read Manuscript
+                                </a>
+</div>
+</div>
+</article>
+<article class="article-entry group">
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.2em] text-meta">
+<span>Aug 15, 2024</span>
+<span class="w-1 h-1 rounded-full bg-border-thin"></span>
+<span class="text-primary">AI News</span>
+</div>
+<a class="block" href="#">
+<h3 class="text-4xl lg:text-5xl font-serif font-normal leading-tight text-text-main group-hover:text-text-muted transition-colors duration-500">
+                                    The death of the static UI: Moving to generative systems.
+                                </h3>
+<p class="mt-6 text-lg text-text-muted font-light leading-relaxed max-w-2xl line-clamp-2">
+                                    Exploring how Large Language Models are enabling interfaces that morph in real-time based on specific user intent and historical context.
+                                </p>
+</a>
+<div class="mt-4">
+<a class="inline-block text-[10px] font-bold uppercase tracking-[0.2em] border-b border-primary pb-1 transition-all hover:pr-4" href="#">
+                                    Read Manuscript
+                                </a>
+</div>
+</div>
+</article>
+<article class="article-entry group">
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.2em] text-meta">
+<span>Jul 04, 2024</span>
+<span class="w-1 h-1 rounded-full bg-border-thin"></span>
+<span class="text-primary">Process</span>
+</div>
+<a class="block" href="#">
+<h3 class="text-4xl lg:text-5xl font-serif font-normal leading-tight text-text-main group-hover:text-text-muted transition-colors duration-500">
+                                    Minimalism as a Tool for Cognitive Load Reduction.
+                                </h3>
+<p class="mt-6 text-lg text-text-muted font-light leading-relaxed max-w-2xl line-clamp-2">
+                                    How removing the non-essential from digital workspaces creates room for deep work and creative breakthroughs in engineering teams.
+                                </p>
+</a>
+<div class="mt-4">
+<a class="inline-block text-[10px] font-bold uppercase tracking-[0.2em] border-b border-primary pb-1 transition-all hover:pr-4" href="#">
+                                    Read Manuscript
+                                </a>
+</div>
+</div>
+</article>
+</div>
+<div class="mt-48 pt-12 border-t border-border-thin flex justify-between items-center">
+<a class="text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-2 text-meta hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">west</span> Older
+                    </a>
+<div class="flex items-center gap-8 text-[10px] font-bold uppercase tracking-[0.2em]">
+<span class="text-primary">01</span>
+<a class="text-meta hover:text-primary transition-colors" href="#">02</a>
+<a class="text-meta hover:text-primary transition-colors" href="#">03</a>
+<span class="text-meta">...</span>
+<a class="text-meta hover:text-primary transition-colors" href="#">12</a>
+</div>
+<a class="text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-2 text-primary hover:gap-4 transition-all" href="#">
+                        Newer <span class="material-symbols-outlined text-sm">east</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="py-24 border-t border-border-thin">
+<div class="max-w-[1400px] mx-auto px-8 lg:px-16 grid grid-cols-1 md:grid-cols-3 gap-16">
+<div>
+<h4 class="text-[10px] font-bold uppercase tracking-[0.2em] mb-8">Journal</h4>
+<p class="text-sm text-text-muted leading-relaxed max-w-xs">
+                A digital space dedicated to the art of design and the science of building. Updated weekly from San Francisco.
+            </p>
+</div>
+<div>
+<h4 class="text-[10px] font-bold uppercase tracking-[0.2em] mb-8">Navigation</h4>
+<ul class="space-y-4">
+<li><a class="text-sm text-text-muted hover:text-primary transition-colors" href="#">Case Studies</a></li>
+<li><a class="text-sm text-text-muted hover:text-primary transition-colors" href="#">Public Log</a></li>
+<li><a class="text-sm text-text-muted hover:text-primary transition-colors" href="#">Reading List</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-[10px] font-bold uppercase tracking-[0.2em] mb-8">Connect</h4>
+<div class="flex gap-6 text-text-muted">
+<a class="hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-lg">alternate_email</span></a>
+<a class="hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-lg">terminal</span></a>
+<a class="hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-lg">share</span></a>
+</div>
+<p class="mt-8 text-[10px] font-medium text-meta uppercase tracking-[0.1em]">© 2024 Archive Studio</p>
+</div>
+</div>
+</footer>
+
+</body></html>

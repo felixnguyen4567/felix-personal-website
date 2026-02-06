@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Minimalist AI News Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#475569", // Slate Blue
+                        "accent": "#f8fafc",
+                        "border-light": "#f1f5f9",
+                        "text-main": "#0f172a",
+                        "text-muted": "#64748b"
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"]
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.03)',
+                        'hover-soft': '0 12px 30px -4px rgba(0, 0, 0, 0.06)'
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-white text-text-main font-sans antialiased;
+            }
+        }
+        .nav-link {
+            @apply text-sm font-medium text-text-muted hover:text-primary transition-colors;
+        }
+        .tag {
+            @apply px-2.5 py-1 rounded-full bg-slate-100 text-[10px] font-bold text-primary uppercase tracking-wider;
+        }
+    </style>
+</head>
+<body>
+<nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-sm border-b border-border-light">
+<div class="max-w-7xl mx-auto px-8 h-20 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-xl font-bold tracking-tight text-primary">AI HUB</span>
+</div>
+<div class="hidden md:flex items-center gap-10">
+<a class="nav-link text-primary" href="#">News</a>
+<a class="nav-link" href="#">Projects</a>
+<a class="nav-link" href="#">Research</a>
+<a class="nav-link" href="#">About</a>
+<button class="ml-6 px-5 py-2 rounded-full border border-primary text-primary text-sm font-medium hover:bg-primary hover:text-white transition-all">
+                    Newsletter
+                </button>
+</div>
+<div class="md:hidden">
+<span class="material-symbols-outlined text-text-main">menu</span>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-24 px-8 max-w-7xl mx-auto">
+<header class="mb-16 border-b border-border-light pb-12">
+<h1 class="text-5xl font-bold tracking-tight mb-4">The Intelligence Feed</h1>
+<p class="text-text-muted text-xl max-w-2xl font-light">Curating the most significant breakthroughs in artificial intelligence and robotics.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+<div class="lg:col-span-8">
+<article class="group">
+<div class="aspect-[16/9] overflow-hidden rounded-2xl bg-slate-100 mb-8 shadow-soft transition-all group-hover:shadow-hover-soft">
+<img alt="Featured AI Story" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9Ke16QYAllrTqBK6KkJHSZdAqDPOOakWMg8MidxownvOfMjLHSN9fWFvn9qnZQfNRB29E-Pq4bMjSDenDtwTDMmBaTvNjWNJYEdEPd2vFhrmsYvk2gnBjrDuryjsgENPPSfXmt0-KRoe67LcM9qiYRwkK_rDFCrNIV2hs9IJBzn4ME7QGE0OH1IKcMwbsluPx2iB--cmWzoyNO9fDXrE8_0bOrfIwDFBu-gdCkMvygcRPWnflAGaB2RPYS5wVUr_RxkqCVNb3aMA"/>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="tag">Featured Story</span>
+<span class="text-text-muted text-xs">Oct 24, 2024</span>
+</div>
+<h2 class="text-4xl font-bold text-slate-900 leading-tight group-hover:text-primary transition-colors">
+                            The Singularity of User Interface: How LLMs are Redefining Human-Computer Interaction
+                        </h2>
+<p class="text-text-muted text-lg leading-relaxed max-w-3xl">
+                            We are moving past the era of buttons and menus. New research suggests that intent-based systems powered by generative models will soon replace traditional graphical interfaces entirely, creating a more fluid digital experience.
+                        </p>
+<a class="inline-flex items-center gap-2 text-primary font-bold text-sm tracking-widest group/link" href="#">
+                            READ FULL STORY 
+                            <span class="material-symbols-outlined text-base transition-transform group-hover/link:translate-x-1">arrow_right_alt</span>
+</a>
+</div>
+</article>
+<div class="mt-20 pt-16 border-t border-border-light">
+<h3 class="text-2xl font-bold mb-10">Trending News</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
+<div class="group">
+<div class="aspect-video overflow-hidden rounded-xl bg-slate-100 mb-6 shadow-soft">
+<img alt="Robotics" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA1DAao22vQSxbt_tDymtb6d66aek1vVEmHZyamUgxrKKYF99pWoSt1KBKqLttL1ywaA0H8yV2EBrshKZ0ows0Fs5cTxIggMwj204VDPXxMNZD3Z_28wyge4TM4yTx7LLKELHGAGiEsuGaABvBEfYGBrWiDX70lQUkyKjIDJ_3ae0nlbmfEDNz-4j3P0K5j8aXAVMx_jHSg_UC2_MAa92S2h1_eN3kOnOZfd7Wxt6f0l6esLC32HqmXDeNzX1k7WJFwUpN8pcefHs"/>
+</div>
+<span class="tag mb-4 inline-block">Robotics</span>
+<h4 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors">Autonomous Mobile Agents in Warehouse Logistics</h4>
+<p class="text-text-muted text-sm leading-relaxed mb-4">A new fleet of collaborative robots is setting efficiency records across global distribution centers.</p>
+<a class="text-xs font-bold text-primary tracking-widest hover:underline" href="#">READ MORE</a>
+</div>
+<div class="group">
+<div class="aspect-video overflow-hidden rounded-xl bg-slate-100 mb-6 shadow-soft">
+<img alt="Ethics" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1gU6nd1Vqxs0OQearW6_NlxQPvChtU-1lqjjKJ8EW9AwXZf8ei_EARC3DiEEFkM2gDx7ns98UIDwAwiEt8JcAyBK0UfqAihIxHxhP1xqXu4BK9a1qmn97f5L_aASpgUg3zzJb2Rg-vplmmg3jk6Cjbb5MjOfGiwC59HZ5zRQ01i4EA-cBitouPXM9q5wiqNfjaTtFezxjsJ7ocaqpMlPAHVmelDxKo-XhTEDaciX5IpUENiuavV2W-G0xoqwYIYcMwvYOZk9i-wY"/>
+</div>
+<span class="tag mb-4 inline-block">Ethical AI</span>
+<h4 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors">The Governance of Synthetic Data Generation</h4>
+<p class="text-text-muted text-sm leading-relaxed mb-4">Exploring the regulatory frameworks needed for the massive scale of AI-generated training datasets.</p>
+<a class="text-xs font-bold text-primary tracking-widest hover:underline" href="#">READ MORE</a>
+</div>
+</div>
+</div>
+</div>
+<aside class="lg:col-span-4 space-y-16">
+<div>
+<h3 class="text-xs font-bold text-primary uppercase tracking-[0.2em] mb-8 pb-4 border-b border-border-light">Latest Updates</h3>
+<div class="space-y-10">
+<article class="flex gap-4 group">
+<div class="w-20 h-20 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0">
+<img alt="LLMs" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCF3YgB-XURCTWAaw2jEsm883Kp1KZwsCNS4MAYbcTmCOgQX0jhtCnq2SiKm_if05bcDqbmviR6YdRAjZbIeuEI5SOpWszzi5nqFA33SYKnNWBMUyX-Dt2KUbZgslylXs5Ypvce4s_KS6jzw567HG_R0AhFFGb0SvJYCLVFUGWWYF5YpZNkm2f5uHR_EhFynd3O7H1I7H1-PC6gIq_oedLqIeH8fVSm7Mfr1R86wzhgJMPzg_YiUqh6M4VJxWtKxQRJwWBsqe637Ew"/>
+</div>
+<div class="space-y-1">
+<span class="text-[10px] font-bold text-text-muted uppercase">LLMs</span>
+<h5 class="text-sm font-bold leading-snug group-hover:text-primary transition-colors">Open-source models surpass proprietary benchmarks.</h5>
+<a class="text-[10px] font-bold text-primary tracking-tighter hover:underline" href="#">READ ARTICLE</a>
+</div>
+</article>
+<article class="flex gap-4 group">
+<div class="w-20 h-20 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0">
+<img alt="Hardware" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtf4n9GOaZIFBCz92vXsnrNs6fQaALQUaN_bE98cgrBCgf6qbJoEJt-ISnb4tzOqfJVL-kaIoRifZiY3Pjj3ODRPCUGkjxvHnEGVReJzdZ8qCQ4pYh54qwZ8vYFsz_tpOUgYv9xCtmNQh4q5v6hZig9qQnREQWQW9pmlkxuP4ahhDHVuD66OrR-l9tArq_9t0-KqE7dk4jU-fon5rAH_MjkbAeLCOf5fbdPotk4e3xqEwU_gKjdeYyAHYsnUNjnQWDndvEGOddFnY"/>
+</div>
+<div class="space-y-1">
+<span class="text-[10px] font-bold text-text-muted uppercase">Hardware</span>
+<h5 class="text-sm font-bold leading-snug group-hover:text-primary transition-colors">Next-gen silicon designed specifically for inference.</h5>
+<a class="text-[10px] font-bold text-primary tracking-tighter hover:underline" href="#">READ ARTICLE</a>
+</div>
+</article>
+<article class="flex gap-4 group">
+<div class="w-20 h-20 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0">
+<img alt="Vision" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9Ke16QYAllrTqBK6KkJHSZdAqDPOOakWMg8MidxownvOfMjLHSN9fWFvn9qnZQfNRB29E-Pq4bMjSDenDtwTDMmBaTvNjWNJYEdEPd2vFhrmsYvk2gnBjrDuryjsgENPPSfXmt0-KRoe67LcM9qiYRwkK_rDFCrNIV2hs9IJBzn4ME7QGE0OH1IKcMwbsluPx2iB--cmWzoyNO9fDXrE8_0bOrfIwDFBu-gdCkMvygcRPWnflAGaB2RPYS5wVUr_RxkqCVNb3aMA"/>
+</div>
+<div class="space-y-1">
+<span class="text-[10px] font-bold text-text-muted uppercase">Vision</span>
+<h5 class="text-sm font-bold leading-snug group-hover:text-primary transition-colors">Spatial computing and AI-driven object tracking.</h5>
+<a class="text-[10px] font-bold text-primary tracking-tighter hover:underline" href="#">READ ARTICLE</a>
+</div>
+</article>
+</div>
+</div>
+<div class="bg-slate-50 p-8 rounded-2xl border border-border-light shadow-soft">
+<h3 class="text-xl font-bold mb-3">Subscribe to AI Digest</h3>
+<p class="text-text-muted text-sm mb-6 leading-relaxed">Join 25,000+ experts receiving weekly insights on the future of machine intelligence.</p>
+<form class="space-y-3">
+<input class="w-full px-4 py-3 rounded-lg border-border-light text-sm focus:ring-1 focus:ring-primary focus:border-primary transition-all outline-none" placeholder="Email address" type="email"/>
+<button class="w-full bg-primary text-white py-3 rounded-lg text-sm font-bold hover:bg-slate-800 transition-colors">
+                            Subscribe Now
+                        </button>
+</form>
+<p class="text-[10px] text-text-muted mt-4 text-center">No spam, just signal. Unsubscribe anytime.</p>
+</div>
+<div>
+<h3 class="text-xs font-bold text-primary uppercase tracking-[0.2em] mb-6">Explore Topics</h3>
+<div class="flex flex-wrap gap-2">
+<a class="px-4 py-2 border border-border-light rounded-full text-xs font-medium text-text-muted hover:border-primary hover:text-primary transition-colors" href="#">Machine Learning</a>
+<a class="px-4 py-2 border border-border-light rounded-full text-xs font-medium text-text-muted hover:border-primary hover:text-primary transition-colors" href="#">Neural Networks</a>
+<a class="px-4 py-2 border border-border-light rounded-full text-xs font-medium text-text-muted hover:border-primary hover:text-primary transition-colors" href="#">NLP</a>
+<a class="px-4 py-2 border border-border-light rounded-full text-xs font-medium text-text-muted hover:border-primary hover:text-primary transition-colors" href="#">GPU Cluster</a>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<footer class="py-20 px-8 border-t border-border-light bg-white">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
+<div class="space-y-4 max-w-sm">
+<span class="text-lg font-bold text-primary tracking-tight">AI HUB</span>
+<p class="text-text-muted text-sm leading-relaxed">
+                    A curated intelligence journal dedicated to exploring the intersection of human creativity and automated systems.
+                </p>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-16">
+<div>
+<h5 class="text-xs font-bold uppercase tracking-widest mb-6">Network</h5>
+<ul class="space-y-3 text-sm text-text-muted">
+<li><a class="hover:text-primary transition-colors" href="#">Latest News</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Projects</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Research</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-xs font-bold uppercase tracking-widest mb-6">Social</h5>
+<ul class="space-y-3 text-sm text-text-muted">
+<li><a class="hover:text-primary transition-colors" href="#">Twitter / X</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">GitHub</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">LinkedIn</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto mt-20 pt-8 border-t border-border-light flex justify-between items-center text-[10px] font-bold text-text-muted uppercase tracking-[0.2em]">
+<span>© 2024 AI News Hub</span>
+<span class="hidden sm:block">Building the Future, responsibly.</span>
+</div>
+</footer>
+
+</body></html>

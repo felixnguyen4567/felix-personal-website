@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Inter, Space_Grotesk, Crimson_Pro, Manrope, Playfair_Display } from "next/font/google";
 import "../globals.css";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale, getTranslations } from 'next-intl/server';
@@ -7,13 +7,33 @@ import { routing } from '@/i18n/routing';
 import NavBar from '@/components/nav-bar';
 import Footer from '@/components/footer';
 
-const geistSans = Geist({
-    variable: "--font-geist-sans",
+const geistMono = Geist_Mono({
+    variable: "--font-geist-mono",
     subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
+const inter = Inter({
+    variable: "--font-inter",
+    subsets: ["latin"],
+});
+
+const spaceGrotesk = Space_Grotesk({
+    variable: "--font-space-grotesk",
+    subsets: ["latin"],
+});
+
+const crimsonPro = Crimson_Pro({
+    variable: "--font-crimson-pro",
+    subsets: ["latin"],
+});
+
+const manrope = Manrope({
+    variable: "--font-manrope",
+    subsets: ["latin"],
+});
+
+const playfair = Playfair_Display({
+    variable: "--font-playfair-display",
     subsets: ["latin"],
 });
 
@@ -79,12 +99,15 @@ export default async function LocaleLayout({
 
     return (
         <html lang={locale}>
+            <head>
+                <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+            </head>
             <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
+                className={`${inter.variable} ${spaceGrotesk.variable} ${crimsonPro.variable} ${manrope.variable} ${playfair.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen bg-background text-text-main font-sans selection:bg-primary selection:text-white`}
             >
                 <NextIntlClientProvider messages={messages}>
                     <NavBar />
-                    <main className="flex-grow w-full max-w-5xl mx-auto p-4 sm:p-6">
+                    <main className="flex-grow w-full">
                         {children}
                     </main>
                     <Footer />

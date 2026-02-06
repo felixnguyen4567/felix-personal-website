@@ -53,7 +53,25 @@ export function EditPostForm({ post, locale }: { post: Post, locale: string }) {
                 >
                     <option value="LOG">LOG</option>
                     <option value="NOTE">NOTE</option>
+                    <option value="JOURNAL">JOURNAL</option>
+                    <option value="AI_NEWS">AI NEWS</option>
                 </select>
+            </div>
+
+            <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                    <Label htmlFor="coverImageUrl">Cover Image URL</Label>
+                    <MediaUpload onUpload={(url) => {
+                        const input = document.getElementById('coverImageUrl') as HTMLInputElement;
+                        if (input) input.value = url;
+                    }} />
+                </div>
+                <ShadcnInput
+                    id="coverImageUrl"
+                    name="coverImageUrl"
+                    placeholder="/images/cover.jpg"
+                    defaultValue={post.coverImageUrl || ''}
+                />
             </div>
 
             <div className="space-y-2">

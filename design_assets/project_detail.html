@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Project Detail - Minimalist Portfolio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b6cee",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .sticky-sidebar { top: 2rem; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased transition-colors duration-300">
+<!-- Scroll Progress Bar -->
+<div class="fixed top-0 left-0 w-full h-1 z-50 bg-slate-200 dark:bg-slate-800">
+<div class="h-full bg-primary" style="width: 45%;"></div>
+</div>
+<!-- Navigation -->
+<header class="sticky top-0 z-40 w-full bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+<div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="size-8 bg-primary rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[20px]">terminal</span>
+</div>
+<span class="font-bold text-lg tracking-tight">Portfolio</span>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Projects</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Blog</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">AI News</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">About</a>
+<button class="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-lg text-sm font-bold transition-all">
+                    Contact
+                </button>
+</nav>
+<button class="md:hidden p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-6 py-12 lg:py-20">
+<!-- Hero Section -->
+<div class="flex flex-col gap-8 mb-16 lg:mb-24">
+<div class="flex flex-wrap gap-2 text-sm font-medium text-slate-500">
+<a class="hover:text-primary" href="#">Projects</a>
+<span>/</span>
+<span class="text-slate-900 dark:text-white">AI-Driven Analytics Dashboard</span>
+</div>
+<div class="max-w-4xl">
+<h1 class="text-5xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6">
+                    Redefining data visualization with AI.
+                </h1>
+<p class="text-xl text-slate-600 dark:text-slate-400 font-medium max-w-2xl leading-relaxed">
+                    A comprehensive analytics platform that uses machine learning to predict market trends and automate reporting for enterprise clients.
+                </p>
+</div>
+<div class="w-full aspect-[21/9] rounded-xl overflow-hidden shadow-2xl bg-white dark:bg-slate-800">
+<img alt="Dashboard UI" class="w-full h-full object-cover" data-alt="Modern analytics dashboard interface showing charts and metrics" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_ggC4UP5dsL4oadCgUqxs8M9nQA75wv1Da4aMAimtSDvco_fgZSL6vdRQTu2GtxcIAltvdoqeq5xJazz_111EtTMjsFSBnujKbERrXepDhp8QzlKlRGh_flms_lZ7S8YmyPYExxIgiZZQq71iPnnuOQPqmQz7F8VdjyXYe2UQCEH1StWelad9UReg2ZzVvh2HMJwZszpHIhj-eN69hw4eA38cNPGK91JcXKIPr077bSuGNp_G41zbMX08xGtYJOPkCsFvKc1x_-4"/>
+</div>
+</div>
+<!-- Project Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
+<!-- Sidebar (Metadata) -->
+<aside class="lg:col-span-4 lg:sticky lg:top-24 h-fit space-y-10">
+<div class="space-y-6">
+<div>
+<h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Role</h4>
+<p class="text-lg font-semibold">Lead UI Designer &amp; Frontend Developer</p>
+</div>
+<div>
+<h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Tech Stack</h4>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-bold">React</span>
+<span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-bold">Tailwind CSS</span>
+<span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-bold">Python</span>
+<span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-bold">TensorFlow</span>
+<span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-bold">PostgreSQL</span>
+</div>
+</div>
+<div>
+<h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Links</h4>
+<div class="flex flex-col gap-3">
+<a class="flex items-center gap-2 text-primary font-bold hover:underline" href="#">
+<span class="material-symbols-outlined text-[18px]">open_in_new</span>
+                                View Live Demo
+                            </a>
+<a class="flex items-center gap-2 text-slate-600 dark:text-slate-400 font-bold hover:text-slate-900 dark:hover:text-white" href="#">
+<span class="material-symbols-outlined text-[18px]">code</span>
+                                GitHub Repository
+                            </a>
+</div>
+</div>
+</div>
+<div class="p-6 bg-primary/5 dark:bg-primary/10 rounded-xl border border-primary/10">
+<p class="text-sm italic text-slate-600 dark:text-slate-400 leading-relaxed">
+                        "The goal was to make complex data feel approachable. We focused on clarity over decoration."
+                    </p>
+</div>
+</aside>
+<!-- Case Study Text -->
+<div class="lg:col-span-8 space-y-16">
+<section>
+<h2 class="text-3xl font-bold mb-6 text-slate-900 dark:text-white">Overview</h2>
+<div class="prose prose-slate dark:prose-invert max-w-none text-lg leading-relaxed text-slate-600 dark:text-slate-400 space-y-4">
+<p>
+                            In the rapidly evolving landscape of enterprise business, data is king. However, raw data often creates more noise than insight. This project was born from the need to provide executives with a "single pane of glass" view into their company's operational health.
+                        </p>
+<p>
+                            The AI-Driven Analytics Dashboard integrates with existing CRMs to pull real-time data, process it through a custom-trained LLM, and output actionable intelligence rather than just rows of numbers.
+                        </p>
+</div>
+</section>
+<section>
+<h2 class="text-3xl font-bold mb-6 text-slate-900 dark:text-white">The Challenge</h2>
+<div class="prose prose-slate dark:prose-invert max-w-none text-lg leading-relaxed text-slate-600 dark:text-slate-400 space-y-4">
+<p>
+                            The primary hurdle was <strong>information density</strong>. Users were overwhelmed by traditional dashboards that tried to show everything at once. We needed a system that prioritized information based on urgency and relevance to the specific user role.
+                        </p>
+<ul class="list-disc pl-5 space-y-2 mt-4">
+<li>Optimizing rendering for datasets with over 100,000 live nodes.</li>
+<li>Creating a natural language interface for data querying.</li>
+<li>Ensuring accessibility standards across complex SVG visualizations.</li>
+</ul>
+</div>
+</section>
+<div class="grid grid-cols-2 gap-4 my-8">
+<div class="aspect-video bg-slate-200 dark:bg-slate-800 rounded-lg overflow-hidden shadow-md">
+<img alt="Mobile View" class="w-full h-full object-cover" data-alt="Close up of a dark themed data chart on mobile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCviEurp_M7L4Toukz4kWLyoamgAEWAN5K67KWF6Y3_wTsufYtumkysPKy6lowlc2np1fmnXugvGNa_qh03FNnz7L8sMs8HYS0PA_uZjUb7dq3YujiMfyWiTFozXjujmRiP6Arr-aE69Ij8cq9znHcu9_Hdxj_09r2t95kV6YWnpV_MKws9aSbzHhRxIeoolqnTK9so4GkQSx_jP0TS9PP2AzagEFKNFWNfJccDOUZo0BJn6RClZhIlM8_e_yJFZY9CFmH14pHdlg0"/>
+</div>
+<div class="aspect-video bg-slate-200 dark:bg-slate-800 rounded-lg overflow-hidden shadow-md">
+<img alt="Analytics" class="w-full h-full object-cover" data-alt="Laptop displaying complex analytical graphs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtXcO9AwlBTi8NlOzwn_WKKu0qShFa7UB_oKwbDVBNZiC6sWpv-4hrgGm5k4D96BFX7cj2OKyh6wMva1vyHwNUf-AMXmX7pCjDCnAcCTEstK0bgvKO0eCd4o1vE0s2dFMVY9OXqc-lmP81vhAOmWZmTaUquv35lwyTyMvgAPOAaHyuLNCjjP5BIgmabD8l0bEC9D3xlEtG8UgPFD29tTpIJJLt4I4F3IkC9Y-aU6W3rTFyI2s7TE-rvwF5MM6bpDbSAPZZKHoMaHw"/>
+</div>
+</div>
+<section>
+<h2 class="text-3xl font-bold mb-6 text-slate-900 dark:text-white">The Solution</h2>
+<div class="prose prose-slate dark:prose-invert max-w-none text-lg leading-relaxed text-slate-600 dark:text-slate-400 space-y-4">
+<p>
+                            We implemented a "Progressive Disclosure" design pattern. The home screen features three high-level KPIs that, when clicked, drill down into deeper levels of granularity. 
+                        </p>
+<p>
+                            The standout feature is the <strong>AI Assistant Panel</strong>, which allows users to ask questions like "Why did our churn rate increase in Q3?" and receive a generated report with supporting visual evidence.
+                        </p>
+<div class="bg-white dark:bg-slate-900 p-8 rounded-xl border border-slate-200 dark:border-slate-800 mt-8 shadow-sm">
+<h3 class="text-xl font-bold mb-4 text-slate-900 dark:text-white">The Outcome</h3>
+<p>The platform reduced the time spent on monthly reporting by 70% and increased data engagement across non-technical departments by 45% within the first three months of implementation.</p>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Next Project Navigation -->
+<div class="mt-24 lg:mt-32 pt-12 border-t border-slate-200 dark:border-slate-800">
+<h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-8">Next Project</h4>
+<a class="group block relative w-full h-64 lg:h-80 rounded-2xl overflow-hidden" href="#">
+<div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-500 z-10"></div>
+<img alt="Next Project Preview" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Abstract colorful gradient background for next project link" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtxlOJ9F_4sNsl417hvd_A47c9MjmYT-4GG6mSSZyl4VIeWOMpbjSIGJhIW819_wDHKlyHc9JEujRR_WeTO9d4tTE6a7eumkuy9gVkHmMEAw5A3IKgZRRZ9qOy9GFgXkiqKPAdGKeyD9W1ydmwj5Io045au2PHCB95gS8u-m30YbkQWaciziZAfPxuUhFohLYn8tg7OC-b1BsP6aNTlq8rvAGuQVsH68lvPccpIMKcG8E30ONQoU4ihIjxsxiAR-cw_kQuYxrSKkc"/>
+<div class="absolute inset-0 z-20 flex flex-col items-center justify-center text-white p-6">
+<span class="text-sm font-bold bg-white/20 backdrop-blur-md px-4 py-1 rounded-full mb-4">Case Study</span>
+<h3 class="text-4xl lg:text-5xl font-extrabold tracking-tight">FinTech Mobile App</h3>
+<div class="mt-6 flex items-center gap-2 font-bold group-hover:gap-4 transition-all">
+                        View Project <span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</div>
+</a>
+</div>
+</main>
+<footer class="bg-white dark:bg-background-dark py-12 border-t border-slate-200 dark:border-slate-800">
+<div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-2">
+<div class="size-6 bg-slate-200 dark:bg-slate-700 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">code</span>
+</div>
+<span class="font-bold text-sm tracking-tight opacity-60">© 2024 Portfolio Design</span>
+</div>
+<div class="flex gap-8">
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">share</span></a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">link</span></a>
+</div>
+</div>
+</footer>
+</body></html>

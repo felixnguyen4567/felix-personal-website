@@ -22,6 +22,8 @@ model User {
 enum PostType {
   LOG
   NOTE
+  JOURNAL
+  AI_NEWS
 }
 
 model Post {

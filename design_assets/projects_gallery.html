@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Projects Gallery | Minimalist Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,700;1,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a1a1a",
+                        "accent": "#666666",
+                        "background": "#ffffff",
+                        "surface": "#f9f9f9",
+                        "border": "#e5e5e5"
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"]
+                    },
+                    borderRadius: {
+                        "none": "0",
+                        "sm": "2px",
+                        "DEFAULT": "4px",
+                        "lg": "8px",
+                        "xl": "12px",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+        }
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+        }
+        .project-card:hover .project-image {
+            transform: scale(1.03);
+        }
+        .filter-chip {
+            transition: all 0.2s ease;
+        }
+        .filter-chip.active {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border-color: #1a1a1a;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #ffffff;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e5e5e5;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-white text-primary min-h-screen flex flex-col antialiased">
+<header class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-border">
+<div class="max-w-7xl mx-auto px-8 h-24 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="size-8 bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-lg">square</span>
+</div>
+<h2 class="text-lg font-bold tracking-tight uppercase">Archive</h2>
+</div>
+<nav class="hidden md:flex items-center gap-12">
+<a class="text-[13px] font-medium tracking-widest uppercase hover:text-accent transition-colors" href="#">Home</a>
+<a class="text-[13px] font-bold tracking-widest uppercase border-b-2 border-primary pb-1" href="#">Projects</a>
+<a class="text-[13px] font-medium tracking-widest uppercase hover:text-accent transition-colors" href="#">Journal</a>
+<a class="text-[13px] font-medium tracking-widest uppercase hover:text-accent transition-colors" href="#">Intelligence</a>
+</nav>
+<div class="flex items-center gap-6">
+<button class="hidden sm:block text-[13px] font-bold tracking-widest uppercase border border-primary px-6 py-2.5 hover:bg-primary hover:text-white transition-all">
+                Let's Talk
+            </button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 grayscale hover:grayscale-0 transition-all duration-500 border border-border" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDnIkld2xZGPivq1o_0axQtKAAIHB2usyEdVnwIug20W8PrA9LAFzZ7tXqd5bUO5tBmzXVEXV6y2NRfhHSrXMtCn0msTfOo5rgAFgcxGL8SltINzold2ig0nq_R9OdNm4lJeqVKobFtGb8QOD0UqDuOmIzZ2_e3EH8G1peXhizGa-aQaPvofbRQCDL5DVaubN19U43b1XI_2v64e_uZl9QWW0JuN2ECcdTLt3KJBbFx4ZMgcKO6MXRRcmFVttl01C5DqzYJGip7JCs");'></div>
+</div>
+</div>
+</header>
+<main class="flex-1 max-w-7xl mx-auto w-full px-8 py-20">
+<div class="flex flex-col gap-12 mb-20">
+<div class="max-w-3xl">
+<h1 class="text-6xl md:text-7xl font-serif italic mb-8">Selected Works</h1>
+<p class="text-accent text-xl leading-relaxed font-light">
+                A curated gallery focusing on the intersection of minimalist aesthetics and high-performance engineering.
+            </p>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="filter-chip active px-6 py-2 text-xs font-bold tracking-widest uppercase border border-primary">All</button>
+<button class="filter-chip px-6 py-2 text-xs font-bold tracking-widest uppercase border border-border bg-surface hover:border-primary">AI &amp; ML</button>
+<button class="filter-chip px-6 py-2 text-xs font-bold tracking-widest uppercase border border-border bg-surface hover:border-primary">Development</button>
+<button class="filter-chip px-6 py-2 text-xs font-bold tracking-widest uppercase border border-border bg-surface hover:border-primary">Product Design</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-20">
+<div class="project-card group flex flex-col">
+<div class="relative aspect-[4/5] overflow-hidden bg-surface mb-8">
+<div class="w-full h-full bg-center bg-cover project-image duration-700 grayscale hover:grayscale-0" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAnJdlPGvxoiYO5EJ-M2GUjQugOVeDsSEVZspZsVMOOkFvufiBEIfLHMagmBofbX7hweZxi2YP_TOXIF1mXzSKDX0cW6MeQqfp_27ev58IHB7q1J0-y5V3UfUIAeKKrhsFJnKqolQNijJcIDNWY90ICyQtRUNqJ2_B7P25_4sBd2IfSDa38fhuLhtoOqcmHa6TZWxdClaLTsPkNINoUt5mnQEa_sM4b9s0BGArGhTDfhbe1WBJTDk6H4_mApUmXMlI54PEmOW50rAA");'></div>
+<div class="absolute top-6 left-6">
+<span class="bg-white/90 backdrop-blur-sm text-primary text-[10px] font-bold px-3 py-1.5 uppercase tracking-widest border border-border">Artificial Intelligence</span>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-2xl font-serif">Neural Vision Core</h3>
+<span class="material-symbols-outlined text-accent group-hover:text-primary transition-colors">north_east</span>
+</div>
+<p class="text-accent text-sm leading-relaxed mb-6 font-light">
+                    Real-time object detection engine optimized for minimal resource environments.
+                </p>
+<div class="flex flex-wrap gap-4 pt-4 border-t border-border">
+<span class="text-[10px] font-bold uppercase tracking-widest text-accent">Python</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-accent">TensorFlow</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-accent">OpenCV</span>
+</div>
+</div>
+</div>
+<div class="project-card group flex flex-col">
+<div class="relative aspect-[4/5] overflow-hidden bg-surface mb-8">
+<div class="w-full h-full bg-center bg-cover project-image duration-700 grayscale hover:grayscale-0" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDdYjVfjPCkVEpYFs0dNGH5kPlfKlI4E1UrKNX_AB8EIKrZ__sz3KGGv_6AAM-yRZW_21-UmCPKDl0fe7t9GDnNVqoeIrsk00iGCA0i2jZ5UnrDyezyU4j6NKzlsQDSEp7WBK49pQluy9tFvyISf9Er2WiLZ7LufF5ZtigW-M7Lt1FGVhAyiulu9RGojOemwwcNrEPAU51O2CZsrzJQHORQTVOwyBzdThApai-ANyCYPxPmJGQZgizZcTMTXtIGBedu4OjPvR4BD5U");'></div>
+<div class="absolute top-6 left-6">
+<span class="bg-white/90 backdrop-blur-sm text-primary text-[10px] font-bold px-3 py-1.5 uppercase tracking-widest border border-border">Development</span>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-2xl font-serif">FinTech Suite Pro</h3>
+<span class="material-symbols-outlined text-accent group-hover:text-primary transition-colors">north_east</span>
+</div>
+<p class="text-accent text-sm leading-relaxed mb-6 font-light">
+                    A streamlined banking interface focused on clarity and transaction transparency.
+                </p>
+<div class="flex flex-wrap gap-4 pt-4 border-t border-border">
+<span class="text-[10px] font-bold uppercase tracking-widest text-accent">React</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-accent">Node.js</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-accent">PostgreSQL</span>
+</div>
+</div>
+</div>
+<div class="project-card group flex flex-col">
+<div class="relative aspect-[4/5] overflow-hidden bg-surface mb-8">
+<div class="w-full h-full bg-center bg-cover project-image duration-700 grayscale hover:grayscale-0" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA7M91JI7XIPOvJNfuXKNjsg2cYWJGH70bbYA0HT7LSrDsHQVxSS43PCi_8YfCxVWIgS2IKjUshi01qVzuOvm3s78vYhgc3BcECgSxDrWCA7B9rsqYGLtr5zRUThGzKWaDsjHessWn80QNJfObUClR_u9z_UIgUCqEpv27WawNjFSQBwVv0QEQ-jUNOESae-J40QqeY6O0VTlQCJkXQs2YnPDgYgOL5tx2S-ojYwEReYRh961XiNX9yrW9dMDWQB50OsgCISWr_jr8");'></div>
+<div class="absolute top-6 left-6">
+<span class="bg-white/90 backdrop-blur-sm text-primary text-[10px] font-bold px-3 py-1.5 uppercase tracking-widest border border-border">UX Research</span>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-2xl font-serif">HealthSync Interface</h3>
+<span class="material-symbols-outlined text-accent group-hover:text-primary transition-colors">north_east</span>
+</div>
+<p class="text-accent text-sm leading-relaxed mb-6 font-light">
+                    Human-centered accessibility study for remote patient monitoring platforms.
+                </p>
+<div class="flex flex-wrap gap-4 pt-4 border-t border-border">
+<span class="text-[10px] font-bold uppercase tracking-widest text-accent">Figma</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-accent">Prototyping</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-accent">Case Study</span>
+</div>
+</div>
+</div>
+<div class="project-card group flex flex-col">
+<div class="relative aspect-[4/5] overflow-hidden bg-surface mb-8">
+<div class="w-full h-full bg-center bg-cover project-image duration-700 grayscale hover:grayscale-0" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD1HutkHIuo9Zi3U-MxcRkvTj_1R9BrxjR7taNy7pfbO8gGAHme9fqyJxyBq23OmRMWbRebc2awmXPRS45wSUWYPsduA58ngis4WIEYWAnfaAz8XJUJsa_Giu2gr-4uxSUHEYjKDT-FgBpqUl3hHsgprYvgSeKBrlGIO55G7EdlndFNVXRbWOK20dqCMXox8kiH6ZUEn2DetWHZ0vNWgYqM4w5tLDjeMHX9gim4ReDZkib6RpK0Q0WgQ_7ccBa_Oj5AcphAPp5NkiM");'></div>
+<div class="absolute top-6 left-6">
+<span class="bg-white/90 backdrop-blur-sm text-primary text-[10px] font-bold px-3 py-1.5 uppercase tracking-widest border border-border">AI &amp; ML</span>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-2xl font-serif">Semantic Search</h3>
+<span class="material-symbols-outlined text-accent group-hover:text-primary transition-colors">north_east</span>
+</div>
+<p class="text-accent text-sm leading-relaxed mb-6 font-light">
+                    Vector-based indexing for hyper-fast retrieval in documentation ecosystems.
+                </p>
+<div class="flex flex-wrap gap-4 pt-4 border-t border-border">
+<span class="text-[10px] font-bold uppercase tracking-widest text-accent">PyTorch</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-accent">Pinecone</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-accent">Next.js</span>
+</div>
+</div>
+</div>
+<div class="project-card group flex flex-col">
+<div class="relative aspect-[4/5] overflow-hidden bg-surface mb-8">
+<div class="w-full h-full bg-center bg-cover project-image duration-700 grayscale hover:grayscale-0" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB127Pg7wmNt8IsXhdcKJ1lNry9_hHVRuBkgNVAbfbcQZpSahu6qfXNpmt4KBD3K08bglTlIdVHaGk5G9T_A-yOBSJdmpv5EDEqL0siANz6j1qixO6xtnoE3sLOBtWZtkiK_RgjaqYtzsc5_UWYzWNLzWS5T8uhgTsPGaHaOWRC9JzQitJG_Fy4hwBgq2pG8xzoaWkaw9yFP-9HRuMu5yuAtze7K2N-mAknjrfGCZXrMdosJlA51WFW7N4JwDmOoXFDTYnswGWO-VQ");'></div>
+<div class="absolute top-6 left-6">
+<span class="bg-white/90 backdrop-blur-sm text-primary text-[10px] font-bold px-3 py-1.5 uppercase tracking-widest border border-border">Product Design</span>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-2xl font-serif">Growth Engine</h3>
+<span class="material-symbols-outlined text-accent group-hover:text-primary transition-colors">north_east</span>
+</div>
+<p class="text-accent text-sm leading-relaxed mb-6 font-light">
+                    A conversion-focused SaaS architecture with high-fidelity interactive elements.
+                </p>
+<div class="flex flex-wrap gap-4 pt-4 border-t border-border">
+<span class="text-[10px] font-bold uppercase tracking-widest text-accent">Three.js</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-accent">Tailwind</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-accent">Framer</span>
+</div>
+</div>
+</div>
+<div class="project-card group flex flex-col">
+<div class="relative aspect-[4/5] overflow-hidden bg-surface mb-8">
+<div class="w-full h-full bg-center bg-cover project-image duration-700 grayscale hover:grayscale-0" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAJlIKsTgEdHbppflA55KUvR94jxybWPCle622rFwffDiv-9YLWtRsZnJnCLCD6A9MQXz6S0NFykBJyrOeK8ITRmy1Kt82f1ekZboQnU_OuxoGfEnOxOY1GUsiidHVqIXjOrVmlMhEy90yPRO6KBIf-E06Us3dVRn7My2Ps0Eh61pPmYC2JCHes146_sleGymSeHT22IXqZMlLtUSKYIBcWLciaVsD40lkADzFqvMVhrvOVwMk6TVfUTendE3QEJm9Iq1mfdjMi4ds");'></div>
+<div class="absolute top-6 left-6">
+<span class="bg-white/90 backdrop-blur-sm text-primary text-[10px] font-bold px-3 py-1.5 uppercase tracking-widest border border-border">Design System</span>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-2xl font-serif">E-Learn System</h3>
+<span class="material-symbols-outlined text-accent group-hover:text-primary transition-colors">north_east</span>
+</div>
+<p class="text-accent text-sm leading-relaxed mb-6 font-light">
+                    Unified visual language ensuring consistency across multi-platform educational tools.
+                </p>
+<div class="flex flex-wrap gap-4 pt-4 border-t border-border">
+<span class="text-[10px] font-bold uppercase tracking-widest text-accent">Tokens</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-accent">Storybook</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-accent">Accessibility</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-32 flex flex-col items-center gap-8">
+<button class="group flex items-center gap-4 px-12 py-4 border border-primary text-xs font-bold tracking-[0.2em] uppercase hover:bg-primary hover:text-white transition-all">
+            Explore More <span class="material-symbols-outlined text-sm group-hover:translate-y-1 transition-transform">expand_more</span>
+</button>
+<p class="text-[11px] font-bold tracking-widest text-accent uppercase">6 of 24 projects documented</p>
+</div>
+</main>
+<footer class="mt-auto border-t border-border bg-white pt-24 pb-12">
+<div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-12 gap-16 mb-24">
+<div class="md:col-span-5">
+<div class="flex items-center gap-3 mb-8">
+<div class="size-6 bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-xs">square</span>
+</div>
+<h2 class="text-sm font-bold tracking-widest uppercase">Archive</h2>
+</div>
+<p class="text-accent text-lg leading-relaxed font-light mb-10 max-w-sm">
+                Designing minimal systems at the intersection of human intelligence and digital efficiency.
+            </p>
+<div class="flex gap-8">
+<a class="text-primary hover:text-accent transition-colors" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+<a class="text-primary hover:text-accent transition-colors" href="#"><span class="material-symbols-outlined">hub</span></a>
+<a class="text-primary hover:text-accent transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
+</div>
+</div>
+<div class="md:col-span-2">
+<h4 class="text-[11px] font-bold tracking-widest uppercase text-accent mb-8">Links</h4>
+<ul class="space-y-4 text-[13px] font-medium uppercase tracking-widest">
+<li><a class="hover:text-accent transition-colors" href="#">Home</a></li>
+<li><a class="text-primary font-bold" href="#">Projects</a></li>
+<li><a class="hover:text-accent transition-colors" href="#">Journal</a></li>
+<li><a class="hover:text-accent transition-colors" href="#">Contact</a></li>
+</ul>
+</div>
+<div class="md:col-span-5">
+<h4 class="text-[11px] font-bold tracking-widest uppercase text-accent mb-8">Newsletter</h4>
+<p class="text-accent text-sm mb-8 font-light">Insights on minimalist design and AI, delivered monthly.</p>
+<div class="flex border-b border-primary pb-2">
+<input class="flex-1 bg-transparent border-none px-0 text-sm focus:ring-0 placeholder:text-border outline-none font-light" placeholder="Email address" type="email"/>
+<button class="text-primary p-2 hover:translate-x-1 transition-transform">
+<span class="material-symbols-outlined text-lg">east</span>
+</button>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-8 pt-12 border-t border-border flex flex-col md:flex-row justify-between items-center gap-6">
+<p class="text-[10px] font-bold tracking-widest uppercase text-accent">© 2024 Minimalist Project Gallery. All rights reserved.</p>
+<div class="flex gap-10 text-[10px] font-bold tracking-widest uppercase text-accent">
+<a class="hover:text-primary" href="#">Privacy</a>
+<a class="hover:text-primary" href="#">Terms</a>
+</div>
+</div>
+</footer>
+
+</body></html>

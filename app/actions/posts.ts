@@ -11,6 +11,7 @@ export async function createPost(prevState: unknown, formData: FormData) {
     const content_en = formData.get('content_en') as string
     const slug = formData.get('slug') as string
     const type = formData.get('type') as PostType || 'LOG'
+    const coverImageUrl = formData.get('coverImageUrl') as string
     const locale = formData.get('locale') as string
 
     let user = await prisma.user.findFirst()
@@ -30,6 +31,7 @@ export async function createPost(prevState: unknown, formData: FormData) {
                 title_en,
                 content_en,
                 type,
+                coverImageUrl,
                 authorId: user.id
             }
         })
@@ -48,6 +50,7 @@ export async function updatePost(id: string, prevState: unknown, formData: FormD
     const content_en = formData.get('content_en') as string
     const slug = formData.get('slug') as string
     const type = formData.get('type') as PostType
+    const coverImageUrl = formData.get('coverImageUrl') as string
     const locale = formData.get('locale') as string
 
     try {
@@ -57,7 +60,8 @@ export async function updatePost(id: string, prevState: unknown, formData: FormD
                 slug,
                 title_en,
                 content_en,
-                type
+                type,
+                coverImageUrl
             }
         })
         await logAudit('UPDATE', 'POST', `Updated post: ${slug}`, post.authorId)
@@ -70,10 +74,10 @@ export async function updatePost(id: string, prevState: unknown, formData: FormD
     redirect(`/${locale}/admin/posts`)
 }
 
-export async function getPosts(type?: PostType, publishedOnly: boolean = true) {
+export async function getPosts(type?: PostType | string, publishedOnly: boolean = true) {
     return await prisma.post.findMany({
         where: {
-            ...(type ? { type } : {}),
+            ...(type ? { type: type as PostType } : {}),
             ...(publishedOnly ? { published: true } : {})
         },
         orderBy: { createdAt: 'desc' }
@@ -89,6 +93,8 @@ export async function togglePublish(id: string, currentState: boolean) {
     revalidatePath('/[locale]/admin/posts', 'page')
     revalidatePath('/[locale]/logs', 'page')
     revalidatePath('/[locale]/notes', 'page')
+    revalidatePath('/[locale]/journal', 'page')
+    revalidatePath('/[locale]/ai-news', 'page')
     revalidatePath('/[locale]', 'layout')
 }
 
