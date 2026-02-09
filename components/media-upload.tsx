@@ -14,9 +14,10 @@ import Image from 'next/image'
 
 interface MediaUploadProps {
     onUpload: (url: string) => void
+    customTrigger?: React.ReactNode
 }
 
-export function MediaUpload({ onUpload }: MediaUploadProps) {
+export function MediaUpload({ onUpload, customTrigger }: MediaUploadProps) {
     const inputRef = useRef<HTMLInputElement>(null)
     const [uploading, setUploading] = useState(false)
     const [open, setOpen] = useState(false)
@@ -82,9 +83,11 @@ export function MediaUpload({ onUpload }: MediaUploadProps) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline" size="sm" type="button">
-                    📷 Media Library
-                </Button>
+                {customTrigger || (
+                    <Button variant="outline" size="sm" type="button">
+                        📷 Media Library
+                    </Button>
+                )}
             </DialogTrigger>
             <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
                 <DialogHeader>

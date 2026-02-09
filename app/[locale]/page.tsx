@@ -1,11 +1,38 @@
 import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import Image from 'next/image';
+import { prisma } from '@/lib/prisma';
+import { formatDate } from '@/lib/utils';
+import { PostType } from '@prisma/client';
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
     setRequestLocale(locale);
     // const t = await getTranslations('HomePage');
+
+    const [aiNewsPosts, journalPosts] = await Promise.all([
+        prisma.post.findMany({
+            where: { type: PostType.AI_NEWS, published: true },
+            orderBy: { createdAt: 'desc' },
+            take: 2
+        }),
+        prisma.post.findMany({
+            where: { type: PostType.JOURNAL, published: true },
+            orderBy: { createdAt: 'desc' },
+            take: 3
+        })
+    ]);
+
+    // Helper to strip markdown and get excerpt
+    const getExcerpt = (markdown: string, length: number = 120) => {
+        const text = markdown
+            .replace(/!\[.*?\]\(.*?\)/g, '') // Remove images
+            .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1') // Remove links
+            .replace(/[#*`_]/g, '') // Remove formatting chars
+            .replace(/\n/g, ' ') // Replace newlines with spaces
+            .trim();
+        return text.length > length ? text.substring(0, length) + '...' : text;
+    };
 
     return (
         <div className="pt-48 pb-32 px-6">
@@ -16,6 +43,15 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                     </span>
                     <span className="text-[10px] font-semibold uppercase tracking-widest">Open for collaboration</span>
+                </div>
+                <div className="mb-8 relative w-32 h-32 mx-auto">
+                    <Image
+                        src="/images/felix.jpg"
+                        alt="Felix Ng"
+                        fill
+                        className="object-cover rounded-full border-2 border-slate-100 dark:border-slate-800 shadow-sm"
+                        priority
+                    />
                 </div>
                 <h1 className="text-4xl md:text-6xl font-semibold leading-tight text-text-main tracking-tight mb-8">
                     Designing interfaces that bridge <span className="text-primary font-normal italic font-serif">human intelligence</span> and technology.
@@ -127,30 +163,41 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                             <div className="h-0.5 w-10 bg-primary/20 mt-4"></div>
                         </div>
                         <div className="space-y-12">
-                            {/* AI Post 1 */}
-                            <div className="group flex gap-8 items-start">
-                                <div className="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-slate-100 dark:bg-slate-800 relative">
-                                    <Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuCF3YgB-XURCTWAaw2jEsm883Kp1KZwsCNS4MAYbcTmCOgQX0jhtCnq2SiKm_if05bcDqbmviR6YdRAjZbIeuEI5SOpWszzi5nqFA33SYKnNWBMUyX-Dt2KUbZgslylXs5Ypvce4s_KS6jzw567HG_R0AhFFGb0SvJYCLVFUGWWYF5YpZNkm2f5uHR_EhFynd3O7H1I7H1-PC6gIq_oedLqIeH8fVSm7Mfr1R86wzhgJMPzg_YiUqh6M4VJxWtKxQRJwWBsqe637Ew" alt="Hardware" fill className="object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+                            {aiNewsPosts.map((post) => (
+                                <div key={post.id} className="group flex gap-8 items-start">
+                                    <Link href={`/ai-news/${post.slug}`} className="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-slate-100 dark:bg-slate-800 relative block">
+                                        {post.coverImageUrl ? (
+                                            <Image
+                                                src={post.coverImageUrl}
+                                                alt={post.title_en}
+                                                fill
+                                                className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center bg-secondary">
+                                                <span className="text-2xl">🤖</span>
+                                            </div>
+                                        )}
+                                    </Link>
+                                    <div>
+                                        <span className="text-[10px] font-bold text-primary uppercase tracking-widest">AI News</span>
+                                        <Link href={`/ai-news/${post.slug}`}>
+                                            <h4 className="text-lg font-semibold text-text-main mt-1 mb-2 group-hover:text-primary transition-colors">
+                                                {post.title_en}
+                                            </h4>
+                                        </Link>
+                                        <p className="text-text-muted text-sm line-clamp-2 leading-relaxed">
+                                            {getExcerpt(post.content_en)}
+                                        </p>
+                                        <Link href={`/ai-news/${post.slug}`} className="inline-block mt-3 text-xs font-semibold text-primary/70 hover:text-primary uppercase tracking-tighter">
+                                            Read Full Insight
+                                        </Link>
+                                    </div>
                                 </div>
-                                <div>
-                                    <span className="text-[10px] font-bold text-primary uppercase tracking-widest">Hardware</span>
-                                    <h4 className="text-lg font-semibold text-text-main mt-1 mb-2 group-hover:text-primary transition-colors">NVIDIA Blackwell: A Quantum Leap?</h4>
-                                    <p className="text-text-muted text-sm line-clamp-2 leading-relaxed">Analyzing the latest architecture gains in token-per-second throughput for large scale models.</p>
-                                    <Link href="/ai-news/hardware-blackwell" className="inline-block mt-3 text-xs font-semibold text-primary/70 hover:text-primary uppercase tracking-tighter">Read Full Insight</Link>
-                                </div>
-                            </div>
-                            {/* AI Post 2 */}
-                            <div className="group flex gap-8 items-start">
-                                <div className="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-slate-100 dark:bg-slate-800 relative">
-                                    <Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtf4n9GOaZIFBCz92vXsnrNs6fQaALQUaN_bE98cgrBCgf6qbJoEJt-ISnb4tzOqfJVL-kaIoRifZiY3Pjj3ODRPCUGkjxvHnEGVReJzdZ8qCQ4pYh54qwZ8vYFsz_tpOUgYv9xCtmNQh4q5v6hZig9qQnREQWQW9pmlkxuP4ahhDHVuD66OrR-l9tArq_9t0-KqE7dk4jU-fon5rAH_MjkbAeLCOf5fbdPotk4e3xqEwU_gKjdeYyAHYsnUNjnQWDndvEGOddFnY" alt="Research" fill className="object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
-                                </div>
-                                <div>
-                                    <span className="text-[10px] font-bold text-primary uppercase tracking-widest">Research</span>
-                                    <h4 className="text-lg font-semibold text-text-main mt-1 mb-2 group-hover:text-primary transition-colors">The Rise of Localized LLMs</h4>
-                                    <p className="text-text-muted text-sm line-clamp-2 leading-relaxed">How small language models (SLMs) are becoming the standard for enterprise-grade edge computing.</p>
-                                    <Link href="/ai-news/slm-research" className="inline-block mt-3 text-xs font-semibold text-primary/70 hover:text-primary uppercase tracking-tighter">Read Full Insight</Link>
-                                </div>
-                            </div>
+                            ))}
+                            {aiNewsPosts.length === 0 && (
+                                <p className="text-text-muted italic">No AI News available yet.</p>
+                            )}
                         </div>
                     </div>
 
@@ -162,27 +209,25 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                             <div className="h-0.5 w-10 bg-primary/20 mt-4"></div>
                         </div>
                         <div className="flex flex-col">
-                            <Link href="/journal/designing-for-discomfort" className="group py-6 border-b border-border-light first:pt-0">
-                                <div className="flex justify-between items-center mb-2">
-                                    <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider">Oct 12, 2024</span>
-                                    <span className="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors text-lg">arrow_outward</span>
+                            {journalPosts.map((post) => (
+                                <Link key={post.id} href={`/journal/${post.slug}`} className="group py-6 border-b border-border-light first:pt-0">
+                                    <div className="flex justify-between items-center mb-2">
+                                        <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider">
+                                            {formatDate(post.createdAt)}
+                                        </span>
+                                        <span className="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors text-lg">arrow_outward</span>
+                                    </div>
+                                    <h4 className="text-lg font-medium text-text-main group-hover:text-primary transition-colors">
+                                        {post.title_en}
+                                    </h4>
+                                </Link>
+                            ))}
+                            {journalPosts.length === 0 && (
+                                <div className="py-6 border-b border-border-light text-text-muted italic">
+                                    No journal entries yet.
                                 </div>
-                                <h4 className="text-lg font-medium text-text-main group-hover:text-primary transition-colors">Designing for Discomfort: Why friction in AI matters.</h4>
-                            </Link>
-                            <Link href="/journal/python-vs-rust" className="group py-6 border-b border-border-light">
-                                <div className="flex justify-between items-center mb-2">
-                                    <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider">Sep 28, 2024</span>
-                                    <span className="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors text-lg">arrow_outward</span>
-                                </div>
-                                <h4 className="text-lg font-medium text-text-main group-hover:text-primary transition-colors">Python vs. Rust for Scalable Data Crawlers.</h4>
-                            </Link>
-                            <Link href="/journal/death-of-static-ui" className="group py-6 border-b border-border-light">
-                                <div className="flex justify-between items-center mb-2">
-                                    <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider">Aug 15, 2024</span>
-                                    <span className="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors text-lg">arrow_outward</span>
-                                </div>
-                                <h4 className="text-lg font-medium text-text-main group-hover:text-primary transition-colors">The death of the static UI: Moving to generative systems.</h4>
-                            </Link>
+                            )}
+
                             <Link href="/journal" className="mt-8 text-primary text-xs font-bold flex items-center gap-2 hover:gap-3 transition-all tracking-widest">
                                 VIEW ALL POSTS <span className="material-symbols-outlined text-sm">arrow_forward</span>
                             </Link>

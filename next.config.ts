@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'contribution.usercontent.google.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'jtuggwhfuoifcidjyipk.supabase.co',
       }
     ],
   },
