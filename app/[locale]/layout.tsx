@@ -98,9 +98,17 @@ export default async function LocaleLayout({
     const messages = await getMessages();
 
     return (
-        <html lang={locale}>
+        <html lang={locale} suppressHydrationWarning>
             <head>
                 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+                <script dangerouslySetInnerHTML={{
+                    __html: `
+                    (function(){
+                        var t=localStorage.getItem('theme');
+                        var d=t==='dark'||(t==null&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+                        if(d)document.documentElement.classList.add('dark');
+                    })();
+                `}} />
             </head>
             <body
                 className={`${inter.variable} ${spaceGrotesk.variable} ${crimsonPro.variable} ${manrope.variable} ${playfair.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen bg-background text-text-main font-sans selection:bg-primary selection:text-white`}

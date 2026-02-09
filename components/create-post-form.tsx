@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label"
 import { createPost } from "@/app/actions/posts"
 import { MediaUpload } from "@/components/media-upload"
 import { RichTextEditor } from "@/components/editor/rich-text-editor"
+import { slugify } from "@/lib/utils"
 
 const initialState = {
     error: '',
@@ -15,6 +16,8 @@ const initialState = {
 export function CreatePostForm({ locale }: { locale: string }) {
     const [state, formAction, isPending] = useActionState(createPost, initialState)
     const [content, setContent] = useState('')
+    const [slug, setSlug] = useState('')
+    const [slugManual, setSlugManual] = useState(false)
 
     return (
         <form action={formAction} className="space-y-6 max-w-4xl">
@@ -22,12 +25,12 @@ export function CreatePostForm({ locale }: { locale: string }) {
 
             <div className="space-y-2">
                 <Label htmlFor="title_en">Title (EN)</Label>
-                <ShadcnInput id="title_en" name="title_en" required />
+                <ShadcnInput id="title_en" name="title_en" required onChange={(e) => { if (!slugManual) setSlug(slugify(e.target.value)); }} />
             </div>
 
             <div className="space-y-2">
-                <Label htmlFor="slug">Slug</Label>
-                <ShadcnInput id="slug" name="slug" required placeholder="my-post-slug" />
+                <Label htmlFor="slug">Slug <span className="text-xs text-muted-foreground">(auto-generated from title)</span></Label>
+                <ShadcnInput id="slug" name="slug" required placeholder="my-post-slug" value={slug} onChange={(e) => { setSlug(e.target.value); setSlugManual(true); }} />
             </div>
 
             <div className="space-y-2">

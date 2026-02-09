@@ -2,7 +2,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import Image from 'next/image';
 import { prisma } from '@/lib/prisma';
-import { formatDate } from '@/lib/utils';
+import { formatDate, localized } from '@/lib/utils';
 import { PostType } from '@prisma/client';
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
@@ -10,7 +10,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     setRequestLocale(locale);
     // const t = await getTranslations('HomePage');
 
-    const [aiNewsPosts, journalPosts] = await Promise.all([
+    const [aiNewsPosts, journalPosts, featuredProjects] = await Promise.all([
         prisma.post.findMany({
             where: { type: PostType.AI_NEWS, published: true },
             orderBy: { createdAt: 'desc' },
@@ -18,6 +18,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         }),
         prisma.post.findMany({
             where: { type: PostType.JOURNAL, published: true },
+            orderBy: { createdAt: 'desc' },
+            take: 3
+        }),
+        prisma.project.findMany({
+            where: { published: true },
             orderBy: { createdAt: 'desc' },
             take: 3
         })
@@ -81,74 +86,38 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                         </Link>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                        {/* Project 1 */}
-                        <Link href="/projects/neural-interface" className="group bg-background rounded-xl overflow-hidden shadow-soft hover:shadow-hover-soft transition-all duration-300 block">
-                            <div className="aspect-[16/10] overflow-hidden bg-slate-100 dark:bg-slate-800 relative">
-                                <Image
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9Ke16QYAllrTqBK6KkJHSZdAqDPOOakWMg8MidxownvOfMjLHSN9fWFvn9qnZQfNRB29E-Pq4bMjSDenDtwTDMmBaTvNjWNJYEdEPd2vFhrmsYvk2gnBjrDuryjsgENPPSfXmt0-KRoe67LcM9qiYRwkK_rDFCrNIV2hs9IJBzn4ME7QGE0OH1IKcMwbsluPx2iB--cmWzoyNO9fDXrE8_0bOrfIwDFBu-gdCkMvygcRPWnflAGaB2RPYS5wVUr_RxkqCVNb3aMA"
-                                    alt="Neural Interface"
-                                    fill
-                                    className="object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
-                                />
-                            </div>
-                            <div className="p-8">
-                                <div className="flex gap-3 mb-4">
-                                    <span className="text-[10px] font-bold text-primary uppercase tracking-wider">UI/UX</span>
-                                    <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider">AI</span>
+                        {featuredProjects.length > 0 ? featuredProjects.map((project) => (
+                            <Link key={project.id} href={`/projects/${project.slug}`} className="group bg-background rounded-xl overflow-hidden shadow-soft hover:shadow-hover-soft transition-all duration-300 block">
+                                <div className="aspect-[16/10] overflow-hidden bg-slate-100 dark:bg-slate-800 relative">
+                                    {project.coverImageUrl ? (
+                                        <Image
+                                            src={project.coverImageUrl}
+                                            alt={localized(locale, project.title_vi, project.title_en)}
+                                            fill
+                                            className="object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full bg-gradient-to-br from-primary/10 to-secondary flex items-center justify-center">
+                                            <span className="material-symbols-outlined text-5xl text-primary/30">code</span>
+                                        </div>
+                                    )}
                                 </div>
-                                <h4 className="text-xl font-semibold text-text-main mb-3">Neural Interface</h4>
-                                <p className="text-text-muted text-sm leading-relaxed mb-6">Simplifying brain-computer interaction through intuitive visual feedback systems.</p>
-                                <div className="flex items-center gap-2 text-primary font-semibold text-xs tracking-widest">
-                                    CASE STUDY <span className="material-symbols-outlined text-sm">trending_flat</span>
+                                <div className="p-8">
+                                    {project.category && (
+                                        <div className="flex gap-3 mb-4">
+                                            <span className="text-[10px] font-bold text-primary uppercase tracking-wider">{project.category}</span>
+                                        </div>
+                                    )}
+                                    <h4 className="text-xl font-semibold text-text-main mb-3">{localized(locale, project.title_vi, project.title_en)}</h4>
+                                    <p className="text-text-muted text-sm leading-relaxed mb-6">{localized(locale, project.desc_vi, project.desc_en)}</p>
+                                    <div className="flex items-center gap-2 text-primary font-semibold text-xs tracking-widest">
+                                        VIEW PROJECT <span className="material-symbols-outlined text-sm">trending_flat</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </Link>
-
-                        {/* Project 2 */}
-                        <Link href="/projects/autonomous-crawler" className="group bg-background rounded-xl overflow-hidden shadow-soft hover:shadow-hover-soft transition-all duration-300 block">
-                            <div className="aspect-[16/10] overflow-hidden bg-slate-100 dark:bg-slate-800 relative">
-                                <Image
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA1DAao22vQSxbt_tDymtb6d66aek1vVEmHZyamUgxrKKYF99pWoSt1KBKqLttL1ywaA0H8yV2EBrshKZ0ows0Fs5cTxIggMwj204VDPXxMNZD3Z_28wyge4TM4yTx7LLKELHGAGiEsuGaABvBEfYGBrWiDX70lQUkyKjIDJ_3ae0nlbmfEDNz-4j3P0K5j8aXAVMx_jHSg_UC2_MAa92S2h1_eN3kOnOZfd7Wxt6f0l6esLC32HqmXDeNzX1k7WJFwUpN8pcefHs"
-                                    alt="Data Crawler"
-                                    fill
-                                    className="object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
-                                />
-                            </div>
-                            <div className="p-8">
-                                <div className="flex gap-3 mb-4">
-                                    <span className="text-[10px] font-bold text-primary uppercase tracking-wider">Python</span>
-                                    <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider">Scraping</span>
-                                </div>
-                                <h4 className="text-xl font-semibold text-text-main mb-3">Autonomous Crawler</h4>
-                                <p className="text-text-muted text-sm leading-relaxed mb-6">Intelligent agents designed to map unstructured data patterns across distributed networks.</p>
-                                <div className="flex items-center gap-2 text-primary font-semibold text-xs tracking-widest">
-                                    VIEW GITHUB <span className="material-symbols-outlined text-sm">trending_flat</span>
-                                </div>
-                            </div>
-                        </Link>
-
-                        {/* Project 3 */}
-                        <Link href="/projects/generative-engine" className="group bg-background rounded-xl overflow-hidden shadow-soft hover:shadow-hover-soft transition-all duration-300 block">
-                            <div className="aspect-[16/10] overflow-hidden bg-slate-100 dark:bg-slate-800 relative">
-                                <Image
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1gU6nd1Vqxs0OQearW6_NlxQPvChtU-1lqjjKJ8EW9AwXZf8ei_EARC3DiEEFkM2gDx7ns98UIDwAwiEt8JcAyBK0UfqAihIxHxhP1xqXu4BK9a1qmn97f5L_aASpgUg3zzJb2Rg-vplmmg3jk6Cjbb5MjOfGiwC59HZ5zRQ01i4EA-cBitouPXM9q5wiqNfjaTtFezxjsJ7ocaqpMlPAHVmelDxKo-XhTEDaciX5IpUENiuavV2W-G0xoqwYIYcMwvYOZk9i-wY"
-                                    alt="Generative Art"
-                                    fill
-                                    className="object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
-                                />
-                            </div>
-                            <div className="p-8">
-                                <div className="flex gap-3 mb-4">
-                                    <span className="text-[10px] font-bold text-primary uppercase tracking-wider">GANs</span>
-                                    <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider">Art</span>
-                                </div>
-                                <h4 className="text-xl font-semibold text-text-main mb-3">Generative Engine</h4>
-                                <p className="text-text-muted text-sm leading-relaxed mb-6">Fine-tuning architectural models to generate mid-century inspired conceptual sketches.</p>
-                                <div className="flex items-center gap-2 text-primary font-semibold text-xs tracking-widest">
-                                    EXPLORE <span className="material-symbols-outlined text-sm">trending_flat</span>
-                                </div>
-                            </div>
-                        </Link>
+                            </Link>
+                        )) : (
+                            <p className="col-span-3 text-center text-text-muted py-12">No projects published yet. Add them through the admin panel.</p>
+                        )}
                     </div>
                 </div>
             </section>
@@ -169,7 +138,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                                         {post.coverImageUrl ? (
                                             <Image
                                                 src={post.coverImageUrl}
-                                                alt={post.title_en}
+                                                alt={localized(locale, post.title_vi, post.title_en)}
                                                 fill
                                                 className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                                             />
@@ -183,11 +152,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                                         <span className="text-[10px] font-bold text-primary uppercase tracking-widest">AI News</span>
                                         <Link href={`/ai-news/${post.slug}`}>
                                             <h4 className="text-lg font-semibold text-text-main mt-1 mb-2 group-hover:text-primary transition-colors">
-                                                {post.title_en}
+                                                {localized(locale, post.title_vi, post.title_en)}
                                             </h4>
                                         </Link>
                                         <p className="text-text-muted text-sm line-clamp-2 leading-relaxed">
-                                            {getExcerpt(post.content_en)}
+                                            {getExcerpt(localized(locale, post.content_vi, post.content_en))}
                                         </p>
                                         <Link href={`/ai-news/${post.slug}`} className="inline-block mt-3 text-xs font-semibold text-primary/70 hover:text-primary uppercase tracking-tighter">
                                             Read Full Insight
@@ -218,7 +187,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                                         <span className="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors text-lg">arrow_outward</span>
                                     </div>
                                     <h4 className="text-lg font-medium text-text-main group-hover:text-primary transition-colors">
-                                        {post.title_en}
+                                        {localized(locale, post.title_vi, post.title_en)}
                                     </h4>
                                 </Link>
                             ))}

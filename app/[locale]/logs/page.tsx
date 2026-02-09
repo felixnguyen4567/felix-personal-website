@@ -2,6 +2,7 @@ import { getPosts } from '@/app/actions/posts';
 import { Link } from '@/i18n/routing';
 import { getTranslations } from 'next-intl/server';
 import { setRequestLocale } from 'next-intl/server';
+import { localized } from '@/lib/utils';
 
 export default async function LogsPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;

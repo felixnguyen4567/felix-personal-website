@@ -30,6 +30,9 @@ export async function createProject(prevState: unknown, formData: FormData) {
                 title_en,
                 desc_en,
                 content_en,
+                coverImageUrl: formData.get('coverImageUrl') as string || undefined,
+                tags: formData.get('tags') as string || undefined,
+                category: formData.get('category') as string || undefined,
                 link,
                 authorId: user.id
             }
@@ -60,6 +63,9 @@ export async function updateProject(id: string, prevState: unknown, formData: Fo
                 title_en,
                 desc_en,
                 content_en,
+                coverImageUrl: formData.get('coverImageUrl') as string || undefined,
+                tags: formData.get('tags') as string || undefined,
+                category: formData.get('category') as string || undefined,
                 link
             }
         })
@@ -73,10 +79,22 @@ export async function updateProject(id: string, prevState: unknown, formData: Fo
     redirect(`/${locale}/admin/projects`)
 }
 
-export async function getProjects() {
+export async function getProjects(publishedOnly: boolean = true) {
     return await prisma.project.findMany({
+        where: publishedOnly ? { published: true } : {},
         orderBy: { createdAt: 'desc' }
     })
+}
+
+export async function toggleProjectPublish(id: string, currentState: boolean) {
+    const project = await prisma.project.update({
+        where: { id },
+        data: { published: !currentState }
+    })
+    await logAudit('UPDATE', 'PROJECT', `${!currentState ? 'Published' : 'Unpublished'} project: ${project.slug}`, project.authorId)
+    revalidatePath('/[locale]/admin/projects', 'page')
+    revalidatePath('/[locale]/projects', 'page')
+    revalidatePath('/[locale]', 'layout')
 }
 
 export async function getProject(id: string) {

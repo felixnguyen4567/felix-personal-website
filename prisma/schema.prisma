@@ -45,20 +45,23 @@ model Post {
 }
 
 model Project {
-  id          String   @id @default(uuid())
-  slug        String   @unique
-  title_en    String
-  title_vi    String?
-  desc_en     String
-  desc_vi     String?
-  content_en  String
-  content_vi  String?
-  link        String?
-  published   Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  authorId    String
-  author      User     @relation(fields: [authorId], references: [id])
+  id            String   @id @default(uuid())
+  slug          String   @unique
+  title_en      String
+  title_vi      String?
+  desc_en       String
+  desc_vi       String?
+  content_en    String
+  content_vi    String?
+  coverImageUrl String?
+  tags          String?
+  category      String?
+  link          String?
+  published     Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  authorId      String
+  author        User     @relation(fields: [authorId], references: [id])
 }
 
 model AuditLog {

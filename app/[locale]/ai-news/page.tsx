@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { getPosts } from '@/app/actions/posts';
 import { PostType } from '@prisma/client';
 import { getPostCoverImage } from '@/lib/image-utils';
+import { localized } from '@/lib/utils';
 
 export default async function AINewsPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
@@ -32,7 +33,7 @@ export default async function AINewsPage({ params }: { params: Promise<{ locale:
                                 {featuredCover ? (
                                     <Image
                                         src={featuredCover}
-                                        alt={featuredPost.title_en}
+                                        alt={localized(locale, featuredPost.title_vi, featuredPost.title_en)}
                                         fill
                                         className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                                     />
@@ -47,12 +48,12 @@ export default async function AINewsPage({ params }: { params: Promise<{ locale:
                                 </div>
                                 <Link href={`/ai-news/${featuredPost.slug}`} className="block">
                                     <h2 className="text-4xl font-bold text-text-main leading-tight group-hover:text-primary transition-colors">
-                                        {featuredPost.title_en}
+                                        {localized(locale, featuredPost.title_vi, featuredPost.title_en)}
                                     </h2>
                                 </Link>
-                                {featuredPost.excerpt_en && (
+                                {(featuredPost.excerpt_en || featuredPost.excerpt_vi) && (
                                     <p className="text-muted-foreground text-lg leading-relaxed max-w-3xl">
-                                        {featuredPost.excerpt_en}
+                                        {localized(locale, featuredPost.excerpt_vi, featuredPost.excerpt_en || '')}
                                     </p>
                                 )}
                                 <Link href={`/ai-news/${featuredPost.slug}`} className="inline-flex items-center gap-2 text-primary font-bold text-sm tracking-widest group/link">
@@ -76,16 +77,16 @@ export default async function AINewsPage({ params }: { params: Promise<{ locale:
                                             <Link href={`/ai-news/${post.slug}`} className="block">
                                                 <div className="aspect-video overflow-hidden rounded-xl bg-secondary mb-6 shadow-soft relative">
                                                     {coverImage ? (
-                                                        <Image src={coverImage} alt={post.title_en} fill className="object-cover" />
+                                                        <Image src={coverImage} alt={localized(locale, post.title_vi, post.title_en)} fill className="object-cover" />
                                                     ) : (
                                                         <div className="w-full h-full bg-gradient-to-br from-primary/10 to-secondary" />
                                                     )}
                                                 </div>
                                                 <span className="px-2.5 py-1 rounded-full bg-slate-100 text-[10px] font-bold text-primary uppercase tracking-wider dark:bg-slate-800 mb-4 inline-block">AI News</span>
-                                                <h4 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors text-text-main">{post.title_en}</h4>
+                                                <h4 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors text-text-main">{localized(locale, post.title_vi, post.title_en)}</h4>
                                             </Link>
-                                            {post.excerpt_en && (
-                                                <p className="text-muted-foreground text-sm leading-relaxed mb-4">{post.excerpt_en}</p>
+                                            {(post.excerpt_en || post.excerpt_vi) && (
+                                                <p className="text-muted-foreground text-sm leading-relaxed mb-4">{localized(locale, post.excerpt_vi, post.excerpt_en || '')}</p>
                                             )}
                                             <Link href={`/ai-news/${post.slug}`} className="text-xs font-bold text-primary tracking-widest hover:underline">READ MORE</Link>
                                         </article>
@@ -107,14 +108,14 @@ export default async function AINewsPage({ params }: { params: Promise<{ locale:
                                         <article key={post.id} className="flex gap-4 group">
                                             <div className="w-20 h-20 rounded-lg overflow-hidden bg-secondary flex-shrink-0 relative">
                                                 {coverImage ? (
-                                                    <Image src={coverImage} alt={post.title_en} fill className="object-cover grayscale hover:grayscale-0 transition-all" />
+                                                    <Image src={coverImage} alt={localized(locale, post.title_vi, post.title_en)} fill className="object-cover grayscale hover:grayscale-0 transition-all" />
                                                 ) : (
                                                     <div className="w-full h-full bg-gradient-to-br from-primary/10 to-secondary" />
                                                 )}
                                             </div>
                                             <div className="space-y-1">
                                                 <span className="text-[10px] font-bold text-muted-foreground uppercase">AI News</span>
-                                                <Link href={`/ai-news/${post.slug}`} className="block"><h5 className="text-sm font-bold leading-snug group-hover:text-primary transition-colors text-text-main">{post.title_en}</h5></Link>
+                                                <Link href={`/ai-news/${post.slug}`} className="block"><h5 className="text-sm font-bold leading-snug group-hover:text-primary transition-colors text-text-main">{localized(locale, post.title_vi, post.title_en)}</h5></Link>
                                                 <Link className="text-[10px] font-bold text-primary tracking-tighter hover:underline" href={`/ai-news/${post.slug}`}>READ ARTICLE</Link>
                                             </div>
                                         </article>

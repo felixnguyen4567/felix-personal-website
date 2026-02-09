@@ -2,6 +2,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import { getPosts } from '@/app/actions/posts';
 import { PostType } from '@prisma/client';
+import { localized } from '@/lib/utils';
 
 export default async function JournalPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
@@ -45,11 +46,11 @@ export default async function JournalPage({ params }: { params: Promise<{ locale
                                         </div>
                                         <Link className="block" href={`/journal/${post.slug}`}>
                                             <h3 className="text-4xl lg:text-5xl font-serif font-normal leading-tight text-text-main group-hover:text-muted-foreground transition-colors duration-500">
-                                                {post.title_en}
+                                                {localized(locale, post.title_vi, post.title_en)}
                                             </h3>
-                                            {post.excerpt_en && (
+                                            {(post.excerpt_en || post.excerpt_vi) && (
                                                 <p className="mt-6 text-lg text-muted-foreground font-light leading-relaxed max-w-2xl line-clamp-2">
-                                                    {post.excerpt_en}
+                                                    {localized(locale, post.excerpt_vi, post.excerpt_en || '')}
                                                 </p>
                                             )}
                                         </Link>
