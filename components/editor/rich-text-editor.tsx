@@ -46,7 +46,7 @@ export function RichTextEditor({ value, onChange, placeholder }: RichTextEditorP
         },
         onUpdate: ({ editor }) => {
             // Get markdown content
-            const markdown = editor.storage.markdown.getMarkdown()
+            const markdown = (editor.storage as any).markdown.getMarkdown()
             onChange(markdown)
         },
     })
@@ -57,7 +57,7 @@ export function RichTextEditor({ value, onChange, placeholder }: RichTextEditorP
     // but often leads to issues during typing if not diffed properly.
     // Given this is an admin panel for single users, we can rely on initial load mostly.
     React.useEffect(() => {
-        if (editor && value && editor.storage.markdown.getMarkdown() !== value) {
+        if (editor && value && (editor.storage as any).markdown.getMarkdown() !== value) {
             // Only update if difference is significant or on initial load to avoid typing loop
             // For now, let's assume one-way binding from form to editor is primary flow
             // and this effect mainly handles the initial load where editor content is empty.
