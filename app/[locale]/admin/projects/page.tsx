@@ -37,7 +37,7 @@ export default async function AdminProjectsPage() {
                                 </Link>
                                 <form action={async () => {
                                     'use server'
-                                    await toggleProjectPublish(project.id)
+                                    await toggleProjectPublish(project.id, project.published)
                                 }}>
                                     <Button variant="outline" size="sm">
                                         {project.published ? '⬇ Unpublish' : '⬆ Publish'}
