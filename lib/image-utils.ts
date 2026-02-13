@@ -23,14 +23,32 @@ export function extractFirstImageFromContent(content: string | null): string | n
 }
 
 /**
+ * Checks if a URL is a valid web image URL (not a local path or MEDIA: prefix)
+ */
+function isValidImageUrl(url: string): boolean {
+    if (!url) return false;
+    // Filter out MEDIA: prefixed paths from automation API
+    if (url.startsWith('MEDIA:')) return false;
+    // Filter out local filesystem paths
+    if (url.startsWith('/home/') || url.startsWith('/Users/') || url.startsWith('C:\\')) return false;
+    // Must be a valid http(s) URL or relative path starting with /
+    return url.startsWith('http://') || url.startsWith('https://') || url.startsWith('/');
+}
+
+/**
  * Gets the cover image for a post, falling back to the first image in content
  */
 export function getPostCoverImage(post: { coverImageUrl: string | null; content_en: string | null }): string | null {
-    // If coverImageUrl is set, use it
-    if (post.coverImageUrl) {
+    // If coverImageUrl is set and valid, use it
+    if (post.coverImageUrl && isValidImageUrl(post.coverImageUrl)) {
         return post.coverImageUrl;
     }
 
     // Otherwise, try to extract the first image from content
-    return extractFirstImageFromContent(post.content_en);
+    const contentImage = extractFirstImageFromContent(post.content_en);
+    if (contentImage && isValidImageUrl(contentImage)) {
+        return contentImage;
+    }
+
+    return null;
 }
