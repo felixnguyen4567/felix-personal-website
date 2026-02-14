@@ -13,9 +13,12 @@ export async function middleware(request: NextRequest) {
 
     // Protect admin routes: redirect to login if unauthenticated
     const pathname = request.nextUrl.pathname;
-    if (pathname.match(/^\/(en|vi)\/admin/)) {
+    const isAdminRoute = pathname.match(/^\/(en|vi)\/admin/);
+    const isLoginRoute = pathname.match(/^\/(en|vi)\/admin\/login/);
+    if (isAdminRoute && !isLoginRoute) {
         if (!user) {
-            const loginUrl = new URL('/en/login', request.url);
+            const locale = pathname.startsWith('/vi') ? 'vi' : 'en';
+            const loginUrl = new URL(`/${locale}/admin/login`, request.url);
             loginUrl.searchParams.set('redirect', pathname);
             return NextResponse.redirect(loginUrl);
         }
