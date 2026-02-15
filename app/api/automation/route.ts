@@ -11,16 +11,30 @@ export async function POST(req: NextRequest) {
 
     try {
         const body = await req.json();
-        const { title_en, content_en, slug, type = 'LOG', published = false } = body;
+        const {
+            title_en,
+            title_vi,
+            content_en,
+            content_vi,
+            slug,
+            type = 'JOURNAL',
+            published = false,
+            coverImageUrl
+        } = body;
 
         if (!title_en || !content_en || !slug) {
-            return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+            return NextResponse.json({ error: 'Missing required fields: title_en, content_en, slug' }, { status: 400 });
+        }
+
+        // Validate type
+        const validTypes = ['LOG', 'NOTE', 'JOURNAL', 'AI_NEWS'];
+        if (!validTypes.includes(type)) {
+            return NextResponse.json({ error: `Invalid type. Must be one of: ${validTypes.join(', ')}` }, { status: 400 });
         }
 
         // Ensure Admin User Exists for attribution
         let user = await prisma.user.findFirst();
         if (!user) {
-            // Fallback for automation if no user exists yet
             user = await prisma.user.create({
                 data: {
                     email: 'automation@system.local',
@@ -33,17 +47,20 @@ export async function POST(req: NextRequest) {
             data: {
                 slug,
                 title_en,
+                title_vi: title_vi || null,
                 content_en,
+                content_vi: content_vi || null,
                 type: type as PostType,
                 published,
+                coverImageUrl: coverImageUrl || null,
                 authorId: user.id
             },
         });
 
-        // Revalidate cache for list pages
-        revalidatePath('/[locale]/logs', 'page');
-        revalidatePath('/[locale]/notes', 'page');
-        revalidatePath('/[locale]', 'layout'); // Optional: Update anywhere latest posts might be shown
+        // Revalidate cache for relevant pages
+        revalidatePath('/[locale]/journal', 'page');
+        revalidatePath('/[locale]/ai-news', 'page');
+        revalidatePath('/[locale]', 'layout');
 
         return NextResponse.json({ success: true, post }, { status: 201 });
 
