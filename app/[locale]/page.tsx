@@ -8,7 +8,6 @@ import { PostType } from '@prisma/client';
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
     setRequestLocale(locale);
-    // const t = await getTranslations('HomePage');
 
     const [aiNewsPosts, journalPosts, featuredProjects] = await Promise.all([
         prisma.post.findMany({
@@ -28,24 +27,24 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         })
     ]);
 
-    // Helper to strip markdown and get excerpt
     const getExcerpt = (markdown: string, length: number = 120) => {
         const text = markdown
-            .replace(/!\[.*?\]\(.*?\)/g, '') // Remove images
-            .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1') // Remove links
-            .replace(/[#*`_]/g, '') // Remove formatting chars
-            .replace(/\n/g, ' ') // Replace newlines with spaces
+            .replace(/!\[.*?\]\(.*?\)/g, '')
+            .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
+            .replace(/[#*`_]/g, '')
+            .replace(/\n/g, ' ')
             .trim();
         return text.length > length ? text.substring(0, length) + '...' : text;
     };
 
     return (
-        <div className="pt-48 pb-32 px-6">
+        <div className="pt-40 pb-32 px-6">
+            {/* Hero */}
             <section className="max-w-4xl mx-auto text-center mb-32">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-800 border border-border-light text-text-muted mb-8">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-50 dark:bg-slate-800/60 border border-border-light text-text-muted mb-8">
                     <span className="relative flex h-2 w-2">
-                        <span className="absolute inline-flex h-full w-full rounded-full bg-primary/40 opacity-75 animate-ping"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                        <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400/60 opacity-75 animate-ping"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                     </span>
                     <span className="text-[10px] font-semibold uppercase tracking-widest">Open for collaboration</span>
                 </div>
@@ -54,7 +53,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                         src="/images/felix.jpg"
                         alt="Felix Ng"
                         fill
-                        className="object-cover rounded-full border-2 border-slate-100 dark:border-slate-800 shadow-sm"
+                        className="object-cover rounded-full border-2 border-slate-100 dark:border-slate-700 shadow-sm"
                         priority
                     />
                 </div>
@@ -64,30 +63,31 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 <p className="text-lg text-text-muted max-w-2xl mx-auto mb-12 leading-relaxed">
                     A minimalist approach to complex systems. Focused on building clean, accessible digital products and exploring the frontiers of AI.
                 </p>
-                <div className="flex flex-wrap justify-center gap-6">
-                    <Link href="/projects" className="bg-primary text-primary-foreground px-8 py-3.5 rounded-lg font-medium transition-all hover:bg-slate-800 dark:hover:bg-slate-700 shadow-soft">
+                <div className="flex flex-wrap justify-center gap-4">
+                    <Link href="/projects" className="bg-primary text-primary-foreground px-8 py-3.5 rounded-lg font-medium transition-all hover:opacity-90 shadow-sm">
                         View My Work
                     </Link>
-                    <Link href="/journal" className="bg-background border border-border-light text-text-muted px-8 py-3.5 rounded-lg font-medium transition-all hover:bg-secondary">
+                    <Link href="/journal" className="bg-background border border-border-light text-text-muted px-8 py-3.5 rounded-lg font-medium transition-all hover:bg-slate-50 dark:hover:bg-slate-800">
                         Read Journal
                     </Link>
                 </div>
             </section>
 
-            <section className="section-padding bg-slate-50/50 dark:bg-slate-900/50 rounded-3xl mb-32">
-                <div className="max-w-6xl mx-auto">
-                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-20">
+            {/* Featured Projects */}
+            <section className="py-24 bg-slate-50/50 dark:bg-slate-900/30 rounded-3xl mb-24 px-6">
+                <div className="max-w-7xl mx-auto">
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
                         <div className="max-w-lg">
-                            <h2 className="text-sm font-bold text-primary uppercase tracking-[0.2em] mb-4">Selected Work</h2>
+                            <h2 className="text-sm font-bold text-primary uppercase tracking-[0.2em] mb-3">Selected Work</h2>
                             <h3 className="text-3xl font-semibold text-text-main">Featured Projects</h3>
                         </div>
                         <Link href="/projects" className="text-text-muted hover:text-primary transition-colors flex items-center gap-2 font-medium text-sm group">
                             Browse all projects <span className="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
                         </Link>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {featuredProjects.length > 0 ? featuredProjects.map((project) => (
-                            <Link key={project.id} href={`/projects/${project.slug}`} className="group bg-background rounded-xl overflow-hidden shadow-soft hover:shadow-hover-soft transition-all duration-300 block">
+                            <Link key={project.id} href={`/projects/${project.slug}`} className="group bg-background rounded-2xl overflow-hidden border border-border-light hover:border-primary/30 hover:shadow-lg transition-all duration-300 block">
                                 <div className="aspect-[16/10] overflow-hidden bg-slate-100 dark:bg-slate-800 relative">
                                     {project.coverImageUrl ? (
                                         <Image
@@ -102,16 +102,16 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                                         </div>
                                     )}
                                 </div>
-                                <div className="p-8">
+                                <div className="p-7">
                                     {project.category && (
-                                        <div className="flex gap-3 mb-4">
+                                        <div className="flex gap-3 mb-3">
                                             <span className="text-[10px] font-bold text-primary uppercase tracking-wider">{project.category}</span>
                                         </div>
                                     )}
-                                    <h4 className="text-xl font-semibold text-text-main mb-3">{localized(locale, project.title_vi, project.title_en)}</h4>
-                                    <p className="text-text-muted text-sm leading-relaxed mb-6">{localized(locale, project.desc_vi, project.desc_en)}</p>
+                                    <h4 className="text-lg font-semibold text-text-main mb-2">{localized(locale, project.title_vi, project.title_en)}</h4>
+                                    <p className="text-text-muted text-sm leading-relaxed mb-5 line-clamp-2">{localized(locale, project.desc_vi, project.desc_en)}</p>
                                     <div className="flex items-center gap-2 text-primary font-semibold text-xs tracking-widest">
-                                        VIEW PROJECT <span className="material-symbols-outlined text-sm">trending_flat</span>
+                                        VIEW PROJECT <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">trending_flat</span>
                                     </div>
                                 </div>
                             </Link>
@@ -122,25 +122,26 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 </div>
             </section>
 
-            <section className="section-padding">
-                <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-20">
+            {/* AI News + Journal */}
+            <section className="px-0">
+                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
                     <div className="lg:col-span-7">
-                        <div className="mb-12">
+                        <div className="mb-10">
                             <h3 className="text-2xl font-semibold text-text-main flex items-center gap-3">
                                 Latest in AI
                             </h3>
-                            <div className="h-0.5 w-10 bg-primary/20 mt-4"></div>
+                            <div className="h-0.5 w-10 bg-primary/30 mt-4"></div>
                         </div>
-                        <div className="space-y-12">
+                        <div className="space-y-10">
                             {aiNewsPosts.map((post) => (
-                                <div key={post.id} className="group flex gap-8 items-start">
-                                    <Link href={`/ai-news/${post.slug}`} className="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-slate-100 dark:bg-slate-800 relative block">
+                                <div key={post.id} className="group flex gap-6 items-start">
+                                    <Link href={`/ai-news/${post.slug}`} className="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0 bg-slate-100 dark:bg-slate-800 relative block border border-border-light">
                                         {post.coverImageUrl ? (
                                             <Image
                                                 src={post.coverImageUrl}
                                                 alt={localized(locale, post.title_vi, post.title_en)}
                                                 fill
-                                                className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                                                className="object-cover group-hover:scale-110 transition-transform duration-300"
                                             />
                                         ) : (
                                             <div className="w-full h-full flex items-center justify-center bg-secondary">
@@ -148,18 +149,18 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                                             </div>
                                         )}
                                     </Link>
-                                    <div>
+                                    <div className="flex-1 min-w-0">
                                         <span className="text-[10px] font-bold text-primary uppercase tracking-widest">AI News</span>
                                         <Link href={`/ai-news/${post.slug}`}>
-                                            <h4 className="text-lg font-semibold text-text-main mt-1 mb-2 group-hover:text-primary transition-colors">
+                                            <h4 className="text-lg font-semibold text-text-main mt-1 mb-2 group-hover:text-primary transition-colors leading-snug">
                                                 {localized(locale, post.title_vi, post.title_en)}
                                             </h4>
                                         </Link>
                                         <p className="text-text-muted text-sm line-clamp-2 leading-relaxed">
                                             {getExcerpt(localized(locale, post.content_vi, post.content_en))}
                                         </p>
-                                        <Link href={`/ai-news/${post.slug}`} className="inline-block mt-3 text-xs font-semibold text-primary/70 hover:text-primary uppercase tracking-tighter">
-                                            Read Full Insight
+                                        <Link href={`/ai-news/${post.slug}`} className="inline-flex items-center gap-1 mt-3 text-xs font-semibold text-primary/70 hover:text-primary uppercase tracking-wide group/link">
+                                            Read More <span className="material-symbols-outlined text-sm group-hover/link:translate-x-0.5 transition-transform">arrow_forward</span>
                                         </Link>
                                     </div>
                                 </div>
@@ -171,11 +172,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                     </div>
 
                     <div className="lg:col-span-5">
-                        <div className="mb-12">
+                        <div className="mb-10">
                             <h3 className="text-2xl font-semibold text-text-main flex items-center gap-3">
                                 Recent Journal
                             </h3>
-                            <div className="h-0.5 w-10 bg-primary/20 mt-4"></div>
+                            <div className="h-0.5 w-10 bg-primary/30 mt-4"></div>
                         </div>
                         <div className="flex flex-col">
                             {journalPosts.map((post) => (
@@ -184,9 +185,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                                         <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider">
                                             {formatDate(post.createdAt)}
                                         </span>
-                                        <span className="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors text-lg">arrow_outward</span>
+                                        <span className="material-symbols-outlined text-slate-300 dark:text-slate-600 group-hover:text-primary transition-colors text-lg">arrow_outward</span>
                                     </div>
-                                    <h4 className="text-lg font-medium text-text-main group-hover:text-primary transition-colors">
+                                    <h4 className="text-lg font-medium text-text-main group-hover:text-primary transition-colors leading-snug">
                                         {localized(locale, post.title_vi, post.title_en)}
                                     </h4>
                                 </Link>
@@ -197,8 +198,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                                 </div>
                             )}
 
-                            <Link href="/journal" className="mt-8 text-primary text-xs font-bold flex items-center gap-2 hover:gap-3 transition-all tracking-widest">
-                                VIEW ALL POSTS <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                            <Link href="/journal" className="mt-8 text-primary text-xs font-bold flex items-center gap-2 hover:gap-3 transition-all tracking-widest group">
+                                VIEW ALL POSTS <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
                             </Link>
                         </div>
                     </div>

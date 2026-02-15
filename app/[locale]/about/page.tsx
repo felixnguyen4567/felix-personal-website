@@ -28,9 +28,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
     return (
         <div className="pt-32 pb-32 px-4 sm:px-8 max-w-5xl mx-auto">
             {/* Hero Section */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-16 mb-32">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-24 pb-24 border-b border-border-light">
                 <div className="md:col-span-4 flex justify-center md:justify-start">
-                    <div className="relative w-48 h-48 md:w-full md:h-72 rounded-2xl overflow-hidden bg-secondary shadow-soft">
+                    <div className="relative w-48 h-48 md:w-full md:h-72 rounded-2xl overflow-hidden bg-secondary shadow-sm border border-border-light">
                         <Image
                             src="/images/felix.jpg"
                             alt="Felix Ng"
@@ -40,7 +40,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                         />
                     </div>
                 </div>
-                <div className="md:col-span-8">
+                <div className="md:col-span-8 flex flex-col justify-center">
                     <h1 className="text-5xl md:text-6xl font-serif italic mb-8 text-text-main">About Me</h1>
                     <p className="text-xl text-muted-foreground leading-relaxed mb-6 font-light">
                         {locale === 'vi'
@@ -58,14 +58,14 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </div>
 
             {/* Tech Stack */}
-            <section className="mb-32">
-                <div className="mb-12">
-                    <h2 className="text-sm font-bold text-primary uppercase tracking-[0.2em] mb-4">Tech Stack</h2>
+            <section className="mb-24 pb-24 border-b border-border-light">
+                <div className="mb-10">
+                    <h2 className="text-sm font-bold text-primary uppercase tracking-[0.2em] mb-3">Tech Stack</h2>
                     <h3 className="text-3xl font-semibold text-text-main">Tools & Technologies</h3>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
                     {techStack.map((tech) => (
-                        <div key={tech.name} className="group bg-slate-50 dark:bg-slate-900 border border-border-light rounded-xl p-5 text-center hover:border-primary hover:shadow-soft transition-all duration-300">
+                        <div key={tech.name} className="group bg-slate-50 dark:bg-slate-900 border border-border-light rounded-xl p-5 text-center hover:border-primary/50 hover:shadow-sm transition-all duration-300">
                             <div className="text-2xl mb-3">{tech.icon}</div>
                             <span className="text-xs font-bold uppercase tracking-wider text-text-main">{tech.name}</span>
                         </div>
@@ -74,15 +74,15 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </section>
 
             {/* Experience Timeline */}
-            <section className="mb-32">
-                <div className="mb-12">
-                    <h2 className="text-sm font-bold text-primary uppercase tracking-[0.2em] mb-4">Journey</h2>
+            <section className="mb-24">
+                <div className="mb-10">
+                    <h2 className="text-sm font-bold text-primary uppercase tracking-[0.2em] mb-3">Journey</h2>
                     <h3 className="text-3xl font-semibold text-text-main">Experience</h3>
                 </div>
                 <div className="space-y-0">
                     {timeline.map((item, i) => (
                         <div key={i} className="group relative pl-8 pb-12 last:pb-0 border-l-2 border-border-light hover:border-primary transition-colors">
-                            <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-background border-2 border-border-light group-hover:border-primary transition-colors" />
+                            <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-background border-2 border-border-light group-hover:border-primary group-hover:bg-primary/10 transition-all" />
                             <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6 mb-3">
                                 <span className="text-xs font-bold text-primary uppercase tracking-widest whitespace-nowrap">{item.year}</span>
                                 <h4 className="text-lg font-semibold text-text-main">{item.role}</h4>
@@ -94,7 +94,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </section>
 
             {/* Connect CTA */}
-            <section className="text-center py-16 bg-slate-50/50 dark:bg-slate-900/50 rounded-3xl border border-border-light">
+            <section className="text-center py-16 bg-slate-50/50 dark:bg-slate-900/30 rounded-3xl border border-border-light">
                 <h2 className="text-3xl font-serif italic mb-6 text-text-main">
                     {locale === 'vi' ? "Hãy kết nối!" : "Let's Connect"}
                 </h2>
@@ -105,10 +105,10 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                     }
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
-                    <Link href="/contact" className="bg-primary text-primary-foreground px-8 py-3.5 rounded-lg font-medium transition-all hover:bg-slate-800 dark:hover:bg-slate-700 shadow-soft">
+                    <Link href="/contact" className="bg-primary text-primary-foreground px-8 py-3.5 rounded-lg font-medium transition-all hover:opacity-90 shadow-sm">
                         {locale === 'vi' ? 'Liên hệ' : 'Get in Touch'}
                     </Link>
-                    <Link href="/projects" className="bg-background border border-border-light text-text-muted px-8 py-3.5 rounded-lg font-medium transition-all hover:bg-secondary">
+                    <Link href="/projects" className="bg-background border border-border-light text-text-muted px-8 py-3.5 rounded-lg font-medium transition-all hover:bg-slate-50 dark:hover:bg-slate-800">
                         {locale === 'vi' ? 'Xem dự án' : 'View Projects'}
                     </Link>
                 </div>

@@ -25,7 +25,7 @@ export default function NavBar() {
     return (
         <>
             <nav className="fixed top-0 w-full z-50 bg-white/80 dark:bg-background/80 backdrop-blur-md border-b border-border-light">
-                <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+                <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <Link href="/" className="text-lg font-bold tracking-tight text-primary dark:text-foreground">
                             FELIX NG
