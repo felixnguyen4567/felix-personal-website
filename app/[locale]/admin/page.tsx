@@ -38,16 +38,26 @@ export default async function AdminPage({ params }: { params: Promise<{ locale: 
                 <div className="p-6 border rounded-lg bg-card text-card-foreground shadow-sm">
                     <h3 className="text-lg font-semibold">Posts</h3>
                     <p className="text-sm text-muted-foreground mb-4">Manage your logs, notes, and systems.</p>
-                    <Link href="/admin/posts">
-                        <Button variant="secondary" className="w-full">Manage Posts</Button>
-                    </Link>
+                    <div className="flex gap-2">
+                        <Link href="/admin/posts" className="flex-1">
+                            <Button variant="secondary" className="w-full">Manage Posts</Button>
+                        </Link>
+                        <Link href="/admin/posts/new">
+                            <Button variant="default">+ New</Button>
+                        </Link>
+                    </div>
                 </div>
                 <div className="p-6 border rounded-lg bg-card text-card-foreground shadow-sm">
                     <h3 className="text-lg font-semibold">Projects</h3>
                     <p className="text-sm text-muted-foreground mb-4">Showcase your work.</p>
-                    <Link href="/admin/projects">
-                        <Button variant="secondary" className="w-full">Manage Projects</Button>
-                    </Link>
+                    <div className="flex gap-2">
+                        <Link href="/admin/projects" className="flex-1">
+                            <Button variant="secondary" className="w-full">Manage Projects</Button>
+                        </Link>
+                        <Link href="/admin/projects/new">
+                            <Button variant="default">+ New</Button>
+                        </Link>
+                    </div>
                 </div>
                 <div className="p-6 border rounded-lg bg-card text-card-foreground shadow-sm">
                     <h3 className="text-lg font-semibold">System</h3>
