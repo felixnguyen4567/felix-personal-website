@@ -5,6 +5,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { Metadata } from 'next';
 import { Link } from '@/i18n/routing';
 import Image from 'next/image';
+import { getReadingTime } from '@/lib/reading-time';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string, slug: string }> }): Promise<Metadata> {
     const { locale, slug: rawSlug } = await params;
@@ -41,6 +42,8 @@ export default async function AINewsDetailPage({ params }: { params: Promise<{ l
         notFound();
     }
 
+    const content = locale === 'vi' && post.content_vi ? post.content_vi : post.content_en;
+
     return (
         <div className="pt-32 pb-24 px-4 sm:px-8 max-w-4xl mx-auto">
             <Link href="/ai-news" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-8 text-sm font-medium transition-colors">
@@ -63,6 +66,8 @@ export default async function AINewsDetailPage({ params }: { params: Promise<{ l
                 <div className="flex items-center gap-3 mb-6">
                     <span className="px-2.5 py-1 rounded-full bg-slate-100 text-[10px] font-bold text-primary uppercase tracking-wider dark:bg-slate-800">AI News</span>
                     <span className="text-muted-foreground text-xs">{new Date(post.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                    <span className="w-1 h-1 rounded-full bg-border-light"></span>
+                    <span className="text-muted-foreground text-xs">{getReadingTime(content)}</span>
                 </div>
                 <h1 className="text-4xl lg:text-5xl font-bold leading-tight text-text-main">
                     {locale === 'vi' && post.title_vi ? post.title_vi : post.title_en}
@@ -73,8 +78,8 @@ export default async function AINewsDetailPage({ params }: { params: Promise<{ l
                     </p>
                 )}
             </header>
-            <article className="prose prose-lg dark:prose-invert max-w-none">
-                <MDXContent source={locale === 'vi' && post.content_vi ? post.content_vi : post.content_en} />
+            <article>
+                <MDXContent source={content} />
             </article>
         </div>
     );
