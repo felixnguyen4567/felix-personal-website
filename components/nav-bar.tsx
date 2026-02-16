@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from '@/i18n/routing';
 import ThemeToggle from '@/components/theme-toggle';
+import LocaleToggle from '@/components/locale-toggle';
 
 export default function NavBar() {
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -36,12 +37,14 @@ export default function NavBar() {
                         <Link className="nav-link" href="/journal">Journal</Link>
                         <Link className="nav-link" href="/ai-news">AI News</Link>
                         <Link className="nav-link" href="/about">About</Link>
+                        <LocaleToggle />
                         <ThemeToggle />
                         <Link href="/contact" className="ml-2 border border-primary text-primary hover:bg-primary hover:text-white dark:border-border-light dark:text-foreground dark:hover:bg-foreground dark:hover:text-background px-5 py-2 rounded text-sm font-medium transition-all">
                             Contact
                         </Link>
                     </div>
                     <div className="md:hidden flex items-center gap-3">
+                        <LocaleToggle />
                         <ThemeToggle />
                         <button
                             onClick={() => setMobileOpen(!mobileOpen)}
