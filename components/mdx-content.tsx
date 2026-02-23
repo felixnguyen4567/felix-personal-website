@@ -1,4 +1,5 @@
 import { MDXRemote } from 'next-mdx-remote/rsc'
+import remarkGfm from 'remark-gfm'
 import React from 'react'
 import Image from 'next/image'
 
@@ -152,7 +153,11 @@ const components = {
 export function MDXContent({ source }: { source: string }) {
     return (
         <div className="mdx-content">
-            <MDXRemote source={source} components={components} />
+            <MDXRemote
+                source={source}
+                components={components}
+                options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+            />
         </div>
     )
 }
