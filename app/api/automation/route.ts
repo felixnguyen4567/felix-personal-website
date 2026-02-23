@@ -69,3 +69,47 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: message }, { status: 500 });
     }
 }
+
+export async function PATCH(req: NextRequest) {
+    const authHeader = req.headers.get('authorization');
+    if (authHeader !== `Bearer ${process.env.AUTOMATION_API_KEY}`) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    try {
+        const body = await req.json();
+        const { slug, ...updates } = body;
+
+        if (!slug) {
+            return NextResponse.json({ error: 'Missing required field: slug' }, { status: 400 });
+        }
+
+        const existing = await prisma.post.findFirst({ where: { slug } });
+        if (!existing) {
+            return NextResponse.json({ error: `Post not found: ${slug}` }, { status: 404 });
+        }
+
+        const allowedFields = ['title_en', 'title_vi', 'content_en', 'content_vi', 'published', 'coverImageUrl'];
+        const data: Record<string, unknown> = {};
+        for (const key of allowedFields) {
+            if (key in updates) {
+                data[key] = updates[key];
+            }
+        }
+
+        const post = await prisma.post.update({
+            where: { id: existing.id },
+            data,
+        });
+
+        revalidatePath('/[locale]/journal', 'page');
+        revalidatePath('/[locale]/ai-news', 'page');
+        revalidatePath('/[locale]', 'layout');
+
+        return NextResponse.json({ success: true, post }, { status: 200 });
+
+    } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : 'Unknown error';
+        return NextResponse.json({ error: message }, { status: 500 });
+    }
+}
