@@ -1,16 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from '@supabase/supabase-js';
 
 export async function POST(req: NextRequest) {
-    const supabase = await createClient();
-
-    // Skip auth check for local admin panel
-    /*
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
+    const authHeader = req.headers.get('authorization');
+    if (authHeader !== `Bearer ${process.env.AUTOMATION_API_KEY}`) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
-    */
+
+    const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
 
     const formData = await req.formData();
     const file = formData.get('file') as File | null;
