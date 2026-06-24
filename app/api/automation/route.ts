@@ -58,6 +58,7 @@ export async function POST(req: NextRequest) {
         });
 
         // Revalidate cache for relevant pages
+        revalidatePath('/[locale]/admin/posts', 'page');
         revalidatePath('/[locale]/journal', 'page');
         revalidatePath('/[locale]/ai-news', 'page');
         revalidatePath('/[locale]', 'layout');
@@ -102,6 +103,7 @@ export async function PATCH(req: NextRequest) {
             data,
         });
 
+        revalidatePath('/[locale]/admin/posts', 'page');
         revalidatePath('/[locale]/journal', 'page');
         revalidatePath('/[locale]/ai-news', 'page');
         revalidatePath('/[locale]', 'layout');

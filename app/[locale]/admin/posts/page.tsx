@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button"
 import { getPosts, deletePost, togglePublish } from "@/app/actions/posts"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminPostsPage() {
     const posts = await getPosts(undefined, false) // Fetch all posts including drafts
 
